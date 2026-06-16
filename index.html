@@ -122,6 +122,31 @@
   .mistake-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
   .mistake-tag { font-size: 12px; padding: 5px 12px; border-radius: 8px; border: 1px solid #FECACA; background: white; color: var(--red); }
 
+  /* NCERT section badge */
+  .ncert-ref-bar { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+  .ncert-section-badge { font-size: 11px; font-weight: 600; padding: 3px 9px; border-radius: 6px; background: #F0FDF4; color: #059669; border: 1px solid #86EFAC; font-family: 'Courier New', monospace; }
+  .ncert-pg-badge { font-size: 11px; color: var(--text-muted); }
+
+  /* Textbook viewer */
+  .textbook-panel { border-top: 1px solid var(--border); }
+  .textbook-toggle { display: flex; align-items: center; gap: 8px; padding: 12px 20px; cursor: pointer; font-size: 13px; font-weight: 500; color: var(--text-muted); user-select: none; }
+  .textbook-toggle:hover { color: var(--text); background: var(--bg); }
+  .textbook-toggle svg { transition: transform .2s; }
+  .textbook-toggle.open svg { transform: rotate(90deg); }
+  .textbook-pages { display: none; padding: 0 20px 20px; }
+  .textbook-pages.open { display: block; }
+  .textbook-page-nav { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
+  .tb-pg-btn { font-size: 11px; padding: 4px 12px; border-radius: 6px; border: 1.5px solid var(--border); background: var(--surface); cursor: pointer; font-weight: 500; }
+  .tb-pg-btn.active { border-color: var(--purple); background: var(--purple-light); color: var(--purple); }
+  .textbook-img-wrap { border-radius: 10px; overflow: hidden; border: 1px solid var(--border); max-height: 600px; overflow-y: auto; }
+  .textbook-img-wrap img { width: 100%; display: block; }
+  .textbook-label { font-size: 11px; color: var(--text-muted); text-align: center; margin-top: 6px; }
+
+  /* Section title with badge */
+  .section-title-row { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
+  .section-title-row .section-title { margin-bottom: 0; }
+  .section-ncert { font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 5px; background: #F0FDF4; color: #059669; border: 1px solid #86EFAC; font-family: 'Courier New', monospace; white-space: nowrap; }
+
   /* QUIZ MODE */
   .quiz-header { margin-bottom: 24px; }
   .quiz-progress { display: flex; gap: 4px; margin-bottom: 20px; }
@@ -377,7 +402,10 @@
           <span style="background:#1E293B;color:#94A3B8;font-size:12px;padding:5px 12px;border-radius:99px;border:1px solid #334155">~55 min to complete</span>
           <span style="background:#5B3CF520;color:#A78BFA;font-size:12px;padding:5px 12px;border-radius:99px;border:1px solid #5B3CF540">High NEET weightage</span>
         </div>
-        <button onclick="showAtom(0,null)" style="background:#5B3CF5;color:white;border:none;padding:12px 28px;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;letter-spacing:.01em">Start Learning →</button>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <button onclick="showAtom(0,null)" style="background:#5B3CF5;color:white;border:none;padding:12px 28px;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;letter-spacing:.01em">Start Learning →</button>
+          <button onclick="openReader()" style="background:#0F172A;color:#94A3B8;border:1px solid #334155;padding:12px 22px;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:8px">📖 Read with NCERT</button>
+        </div>
       </div>
 
       <!-- PREVIOUSLY ON... (what you need to know before this) -->
@@ -553,7 +581,7 @@
         </div>
 
         <div class="section">
-          <div class="section-title">Classification system 1 — by number of halogen atoms (NCERT primary)</div>
+          <div class="section-title-row"><div class="section-title">Classification system 1 — by number of halogen atoms</div><span class="section-ncert">§6.1.1</span></div>
           <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:8px">
             <div class="tier-card" style="background:#EDE9FE;border-color:#C4B5FD">
               <div class="tier-num" style="color:#5B3CF5;font-size:20px">Mono</div>
@@ -580,7 +608,7 @@
         </div>
 
         <div class="section">
-          <div class="section-title">Classification system 2 — by type of carbon bearing the halogen</div>
+          <div class="section-title-row"><div class="section-title">Classification system 2 — by type of carbon bearing the halogen</div><span class="section-ncert">§6.1.2(a)</span></div>
           <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:8px">
             <div class="tier-card" style="background:#EFF6FF;border-color:#BAE6FD">
               <div class="tier-num" style="color:#0284C7">1°</div>
@@ -607,7 +635,7 @@
         </div>
 
         <div class="section">
-          <div class="section-title">Haloalkane vs Haloarene — the third distinction</div>
+          <div class="section-title-row"><div class="section-title">Haloalkane vs Haloarene</div><span class="section-ncert">§6.1.3</span></div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:0">
             <div style="border-radius:10px;padding:14px;background:#F3F4F6;border:1px solid var(--border)">
               <div style="font-size:13px;font-weight:600;margin-bottom:6px">Haloalkane (R–X)</div>
@@ -623,14 +651,43 @@
         </div>
 
         <div class="section">
+          <div class="section-title-row"><div class="section-title">Special types — allylic, benzylic, vinylic, aryl</div><span class="section-ncert">§6.1.2(b,c)</span><span class="section-ncert">§6.1.3(a,b)</span></div>
+          <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px">
+            <div style="border-radius:10px;padding:12px;background:#F0FDF4;border:1px solid #86EFAC">
+              <div style="font-size:12px;font-weight:700;color:#059669;margin-bottom:4px">Allylic halide</div>
+              <div style="font-size:15px;font-family:monospace;color:#065F46;margin-bottom:4px">CH₂=CH–CH₂Cl</div>
+              <div style="font-size:11px;color:#047857;line-height:1.5">Halogen on sp³ C adjacent to C=C<br>High SN1 reactivity (resonance-stabilised carbocation)</div>
+            </div>
+            <div style="border-radius:10px;padding:12px;background:#EDE9FE;border:1px solid #C4B5FD">
+              <div style="font-size:12px;font-weight:700;color:#5B3CF5;margin-bottom:4px">Benzylic halide</div>
+              <div style="font-size:15px;font-family:monospace;color:#3C2899;margin-bottom:4px">C₆H₅–CH₂Cl</div>
+              <div style="font-size:11px;color:#4C1D95;line-height:1.5">Halogen on sp³ C adjacent to benzene ring<br>High SN1 reactivity (benzylic carbocation stabilised by ring)</div>
+            </div>
+            <div style="border-radius:10px;padding:12px;background:#FEF2F2;border:1px solid #FCA5A5">
+              <div style="font-size:12px;font-weight:700;color:#DC2626;margin-bottom:4px">Vinylic halide</div>
+              <div style="font-size:15px;font-family:monospace;color:#7F1D1D;margin-bottom:4px">CH₂=CHCl</div>
+              <div style="font-size:11px;color:#991B1B;line-height:1.5">Halogen directly on C=C (sp² carbon)<br>Very unreactive in SN1/SN2 — C–X has partial double bond character</div>
+            </div>
+            <div style="border-radius:10px;padding:12px;background:#FFF7ED;border:1px solid #FED7AA">
+              <div style="font-size:12px;font-weight:700;color:#D97706;margin-bottom:4px">Aryl halide</div>
+              <div style="font-size:15px;font-family:monospace;color:#78350F;margin-bottom:4px">C₆H₅Cl</div>
+              <div style="font-size:11px;color:#92400E;line-height:1.5">Halogen on aromatic ring (sp² carbon)<br>Very unreactive toward nucleophilic substitution</div>
+            </div>
+          </div>
+          <div style="margin-top:10px;padding:10px 14px;background:#FEF3C7;border-radius:8px;border:1px solid #FCD34D;font-size:12px;color:#78350F">
+            <strong>Key contrast:</strong> Allylic/benzylic → very reactive in SN1 (carbocation resonance-stabilised) | Vinylic/aryl → very unreactive in SN1/SN2 (C–X partial double bond)
+          </div>
+        </div>
+
+        <div class="section">
           <div class="neet-tip" style="background:#EDE9FE">
             <span class="neet-badge" style="background:#5B3CF5;color:white">NEET TIP</span>
-            <div class="neet-text" style="color:#3C2899">NEET tests both systems. System 1 (mono/di/poly) appears in questions about geminal vs vicinal dihalides. System 2 (1°/2°/3°) is essential for SN1 vs SN2 reactivity. Don't mix them up — they answer different questions.</div>
+            <div class="neet-text" style="color:#3C2899">NEET tests both systems. System 1 (mono/di/poly) appears in questions about geminal vs vicinal dihalides. System 2 (1°/2°/3°) is essential for SN1 vs SN2 reactivity. The 4 special types (allylic, benzylic, vinylic, aryl) are tested in classification and reactivity questions.</div>
           </div>
           <div class="mistake-row">
+            <span class="mistake-tag">✕ Confusing allylic and vinylic: allyl chloride has Cl on sp³ C (reactive); vinyl chloride has Cl on sp² C (unreactive)</span>
             <span class="mistake-tag">✕ Thinking 1°/2°/3° refers to the number of halogens — it refers to the carbon bearing the halogen</span>
             <span class="mistake-tag">✕ Confusing geminal and vicinal dihalides — geminal = same carbon, vicinal = adjacent carbons</span>
-            <span class="mistake-tag">✕ Using higher locant for halogen instead of lowest locant rule in IUPAC naming</span>
           </div>
         </div>
       </div>
@@ -1089,6 +1146,85 @@ let onIntro = true;
 let currentStd = 11;
 let currentSubject = 'chemistry';
 
+/* ── NCERT REFERENCE DATA ─────────────────────── */
+// Maps atom index (0-7) to NCERT sections and PDF pages (PDF page N = NCERT pg 159+N)
+const ncertRef = [
+  { sections: ['§6.1', '§6.1.1', '§6.1.2', '§6.1.3', '§6.2'], pages: [2,3,4,5] },   // atom 1
+  { sections: ['§6.3', '§6.6'],                                  pages: [5,11,12] },   // atom 2
+  { sections: ['§6.4.1', '§6.4.2', '§6.4.3'],                   pages: [6,7,8] },     // atom 3
+  { sections: ['§6.5'],                                           pages: [8,9,10] },    // atom 4
+  { sections: ['§6.7.1(b)', '§6.7.1(c)'],                        pages: [15,16,17,18,19,20,21] }, // atom 5
+  { sections: ['§6.7.1(a)', '§6.7.1(c)'],                        pages: [12,13,14,15] }, // atom 6
+  { sections: ['§6.7.1(2)'],                                      pages: [21,22] },     // atom 7
+  { sections: ['§6.7.2'],                                         pages: [23,24,25,26,27,28] }, // atom 8
+];
+
+function ncertPageNum(pdfPage) { return 159 + pdfPage; }
+function ncertPageImg(pdfPage) {
+  return `ncert_pages/page-${String(pdfPage).padStart(2,'0')}.png`;
+}
+
+function renderTextbookPanel(atomIdx) {
+  const ref = ncertRef[atomIdx];
+  if (!ref) return '';
+  const pages = ref.pages;
+  const pageBtns = pages.map((p, i) =>
+    `<button class="tb-pg-btn${i===0?' active':''}" onclick="switchTbPage(this,${atomIdx},${p})">pg ${ncertPageNum(p)}</button>`
+  ).join('');
+  return `
+    <div class="textbook-panel">
+      <div class="textbook-toggle" onclick="toggleTextbook(this)">
+        <svg width="12" height="12" viewBox="0 0 12 12"><path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
+        📖 From the textbook
+        <span style="font-size:11px;margin-left:4px;color:#059669;font-family:monospace">${ref.sections.join(' · ')}</span>
+      </div>
+      <div class="textbook-pages" id="tb-pages-${atomIdx}">
+        <div class="textbook-page-nav">${pageBtns}</div>
+        <div class="textbook-img-wrap">
+          <img id="tb-img-${atomIdx}" src="${ncertPageImg(pages[0])}" alt="NCERT page ${ncertPageNum(pages[0])}" loading="lazy">
+        </div>
+        <div class="textbook-label">NCERT Class 12 Chemistry · pg ${ncertPageNum(pages[0])} <span id="tb-pg-label-${atomIdx}"></span></div>
+      </div>
+    </div>`;
+}
+
+function toggleTextbook(btn) {
+  btn.classList.toggle('open');
+  const panel = btn.nextElementSibling;
+  panel.classList.toggle('open');
+}
+
+function switchTbPage(btn, atomIdx, pdfPage) {
+  btn.closest('.textbook-page-nav').querySelectorAll('.tb-pg-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById(`tb-img-${atomIdx}`).src = ncertPageImg(pdfPage);
+  document.getElementById(`tb-img-${atomIdx}`).alt = `NCERT page ${ncertPageNum(pdfPage)}`;
+  document.getElementById(`tb-pg-label-${atomIdx}`).textContent = `→ ${ncertPageNum(pdfPage)}`;
+}
+
+function injectTextbookPanels() {
+  ncertRef.forEach((ref, i) => {
+    const atomEl = document.getElementById(`atom-${i}`);
+    if (!atomEl) return;
+    // Add section badges to atom header
+    const metaRow = atomEl.querySelector('.atom-meta');
+    if (metaRow && !metaRow.querySelector('.ncert-section-badge')) {
+      const bar = document.createElement('div');
+      bar.className = 'ncert-ref-bar';
+      bar.innerHTML = ref.sections.map(s =>
+        `<span class="ncert-section-badge">${s}</span>`
+      ).join('') + `<span class="ncert-pg-badge">NCERT pg ${ncertPageNum(ref.pages[0])}–${ncertPageNum(ref.pages[ref.pages.length-1])}</span>`;
+      metaRow.insertAdjacentElement('afterend', bar);
+    }
+    // Append textbook panel to the last card in the atom
+    const cards = atomEl.querySelectorAll('.card');
+    const lastCard = cards[cards.length - 1];
+    if (lastCard && !lastCard.querySelector('.textbook-panel')) {
+      lastCard.insertAdjacentHTML('beforeend', renderTextbookPanel(i));
+    }
+  });
+}
+
 /* ── CHAPTER DATA ─────────────────────────────── */
 const courseData = {
   11: {
@@ -1439,6 +1575,275 @@ function retryQuiz() {
 // Init — show home screen and default to Class 11 Chemistry
 selectStd(11);
 selectSubject('chemistry');
+injectTextbookPanels();
+/* ── PARALLEL READER ──────────────────────────── */
+const ATOM_DATA = [
+  { num:1, title:'Classification & Nomenclature', color:'#5B3CF5', bg:'#EDE9FE',
+    sections:['§6.1','§6.1.1','§6.1.2','§6.1.3','§6.2'],
+    points:['Two systems: by # of halogens (mono/di/poly) AND by carbon type (1°/2°/3°)',
+            'Special types: allylic, benzylic (high SN1 reactivity) vs vinylic, aryl (unreactive)',
+            'Geminal dihalides = same C; vicinal = adjacent C'] },
+  { num:2, title:'C-X Bond & Physical Properties', color:'#0284C7', bg:'#E0F2FE',
+    sections:['§6.3','§6.6'],
+    points:['Bond length C-F < C-Cl < C-Br < C-I; bond strength opposite — C-F strongest',
+            'BP order: RI > RBr > RCl > RF for same alkyl group',
+            'Haloalkanes insoluble in water; soluble in organic solvents; denser than water (except RF/RCl lower members)'] },
+  { num:3, title:'Preparation of Haloalkanes', color:'#059669', bg:'#ECFDF5',
+    sections:['§6.4.1','§6.4.2','§6.4.3'],
+    points:['From alcohols: SOCl2 preferred (gaseous byproducts SO2+HCl leave pure product)',
+            'From alkenes: Markovnikov (HX); anti-Markovnikov only with HBr + peroxides',
+            'Finkelstein (NaI/acetone → RI); Swarts (AgF/SbF3 → RF); Grignard (RX+Mg/dry ether); Wurtz (2RX+2Na → R-R)'] },
+  { num:4, title:'Preparation of Haloarenes', color:'#EA580C', bg:'#FFF7ED',
+    sections:['§6.5'],
+    points:['EAS: Ar-H + X2 + FeCl3/FeBr3 → Ar-X (substitution, not addition)',
+            'Sandmeyer\'s: ArN2+Cl– + CuCl/HCl → ArCl; CuBr/HBr → ArBr (Cu needed)',
+            'Iodobenzene: diazonium + KI (no Cu needed); Fluorobenzene: Balz-Schiemann (diazonium tetrafluoroborate → heat)'] },
+  { num:5, title:'SN1 Reaction Mechanism', color:'#D97706', bg:'#FEF3C7',
+    sections:['§6.7.1(b)','§6.7.1(c)'],
+    points:['2-step: ionisation (slow, RDS) → carbocation → Nu attack (fast); Rate = k[RX]',
+            'Favoured by 3° > 2° halides AND allylic/benzylic (resonance stabilises carbocation); polar protic solvent',
+            'Result: racemisation (sp² carbocation attacked from both faces equally)'] },
+  { num:6, title:'SN2 Reaction Mechanism', color:'#7C3AED', bg:'#F5F3FF',
+    sections:['§6.7.1(a)','§6.7.1(c)'],
+    points:['1-step concerted: Nu attacks back face as X leaves; Rate = k[RX][Nu⁻]',
+            'Favoured by 1° > 2° > 3° (steric hindrance kills SN2 for 3°); polar aprotic solvent',
+            'Walden inversion — complete stereochemical inversion at chiral centre (R→S or S→R)'] },
+  { num:7, title:'Elimination Reactions E1/E2', color:'#7C3AED', bg:'#F5F3FF',
+    sections:['§6.7.1(2)'],
+    points:['E1: 2-step via carbocation, first-order; E2: concerted, requires anti-periplanar geometry, second-order',
+            'Saytzeff\'s rule: major product is the more substituted (more stable) alkene',
+            'Alcoholic KOH → elimination; aqueous KOH → substitution; high temperature favours elimination'] },
+  { num:8, title:'Reactions of Haloarenes', color:'#0284C7', bg:'#F0F9FF',
+    sections:['§6.7.2'],
+    points:['NAS: very hard (C-X partial double bond, sp² C); needs –NO2 at ortho/para + forcing conditions (300°C/300 atm)',
+            'EAS: halogens are o/p directors but ring deactivators (–I > +M); gives o+p products slower than benzene',
+            'Wurtz-Fittig: ArX + RX + 2Na → Ar-R; Fittig: 2ArX + 2Na → Ar-Ar (both in dry ether)'] },
+];
+
+// Which atom (1-8) each PDF page primarily covers. 0 = not covered by an atom.
+const PAGE_TO_ATOM = [0,0,1,1,1,2,3,3,3,4,4,2,2,6,6,6,5,5,5,5,5,7,7,8,8,8,8,8,8,0,0,0,0,0,0];
+// Index = pdf page (0 unused, 1-34 used). Value = atom number (1-8) or 0.
+
+const NCERT_CHECKLIST = [
+  { section:'§6.1.1', title:'Classification by number of halogens (mono/di/poly)', atom:1, covered:true },
+  { section:'§6.1.2(a)', title:'Classification by carbon type (1°/2°/3°)', atom:1, covered:true },
+  { section:'§6.1.2(b)', title:'Allylic halides', atom:1, covered:true },
+  { section:'§6.1.2(c)', title:'Benzylic halides', atom:1, covered:true },
+  { section:'§6.1.3(a)', title:'Vinylic halides', atom:1, covered:true },
+  { section:'§6.1.3(b)', title:'Aryl halides / Haloarenes', atom:1, covered:true },
+  { section:'§6.2', title:'IUPAC nomenclature, gem vs vic dihalides', atom:1, covered:true },
+  { section:'§6.3', title:'Nature of C-X bond (polarity, bond length, enthalpy)', atom:2, covered:true },
+  { section:'§6.4.1', title:'Preparation from alcohols (HX, SOCl2, PCl5)', atom:3, covered:true },
+  { section:'§6.4.2', title:'From alkanes (free radical) and alkenes (HX addition)', atom:3, covered:true },
+  { section:'§6.4.3', title:'Halogen exchange — Finkelstein, Swarts', atom:3, covered:true },
+  { section:'§6.4 (metals)', title:'Grignard reagent (RMgX), Wurtz reaction', atom:3, covered:true },
+  { section:'§6.5(i)', title:'Haloarenes by EAS (FeCl3/FeBr3)', atom:4, covered:true },
+  { section:'§6.5(ii)', title:'Sandmeyer\'s reaction (ArCl, ArBr)', atom:4, covered:true },
+  { section:'§6.5(ii)', title:'Balz-Schiemann (ArF), KI for iodobenzene', atom:4, covered:true },
+  { section:'§6.6', title:'Physical properties (BP, density, solubility)', atom:2, covered:true },
+  { section:'§6.7.1(a)', title:'SN2 mechanism — concerted, inversion, 1°>2°>3°', atom:6, covered:true },
+  { section:'§6.7.1(b)', title:'SN1 mechanism — 2-step, racemisation, 3°>2°', atom:5, covered:true },
+  { section:'§6.7.1(c)', title:'Stereochemistry — optical activity, chirality, enantiomers', atom:5, covered:true },
+  { section:'§6.7.1(2)', title:'Elimination reactions — Saytzeff\'s rule, E1/E2', atom:7, covered:true },
+  { section:'§6.7.2(1)', title:'NAS of haloarenes — conditions, –NO2 activation', atom:8, covered:true },
+  { section:'§6.7.2(2)', title:'EAS of haloarenes — o/p directing, deactivating', atom:8, covered:true },
+  { section:'§6.7.2(3)', title:'Wurtz-Fittig and Fittig reactions', atom:8, covered:true },
+  { section:'§6.8.1', title:'Dichloromethane (CH2Cl2) — uses, health effects', atom:0, covered:false },
+  { section:'§6.8.2', title:'Chloroform (CHCl3) — uses, dark-bottle storage', atom:0, covered:false },
+  { section:'§6.8.3', title:'Iodoform (CHI3) — antiseptic, iodoform test', atom:0, covered:false },
+  { section:'§6.8.4', title:'Carbon tetrachloride (CCl4) — ozone depletion', atom:0, covered:false },
+  { section:'§6.8.5', title:'Freons — refrigerants, ozone layer depletion', atom:0, covered:false },
+  { section:'§6.8.6', title:'DDT — insecticide, Nobel Prize, environmental hazards', atom:0, covered:false },
+];
+
+let readerScrollObserver = null;
+let readerActiveAtom = 0;
+
+function openReader() {
+  const overlay = document.getElementById('reader-overlay');
+  overlay.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+  const left = document.getElementById('reader-left');
+  const right = document.getElementById('reader-right');
+  if (!left.innerHTML) {
+    left.innerHTML = buildReaderLeft();
+    right.innerHTML = buildReaderRight();
+  }
+  initReaderObserver();
+}
+
+function closeReader() {
+  document.getElementById('reader-overlay').style.display = 'none';
+  document.body.style.overflow = '';
+  if (readerScrollObserver) { readerScrollObserver.disconnect(); readerScrollObserver = null; }
+}
+
+function buildReaderLeft() {
+  const covered = NCERT_CHECKLIST.filter(c => c.covered).length;
+  const total = NCERT_CHECKLIST.length;
+  let html = `<div style="padding:20px 0 0">`;
+
+  ATOM_DATA.forEach((a, i) => {
+    const sectionBadges = a.sections.map(s =>
+      `<span style="font-size:10px;font-weight:600;padding:2px 7px;border-radius:5px;background:#F0FDF4;color:#059669;border:1px solid #86EFAC;font-family:monospace;white-space:nowrap">${s}</span>`
+    ).join('');
+    html += `
+    <div class="reader-atom" id="ratom-${a.num}" data-atom="${a.num}"
+         style="margin:0 16px 8px;border-radius:12px;border:2px solid transparent;overflow:hidden;transition:all .25s;cursor:pointer"
+         onclick="readerScrollToPage(${a.num})">
+      <div style="padding:14px 16px;display:flex;align-items:flex-start;gap:12px;background:white">
+        <div style="width:32px;height:32px;border-radius:8px;background:${a.bg};color:${a.color};font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">${a.num}</div>
+        <div style="flex:1;min-width:0">
+          <div style="font-size:13px;font-weight:600;margin-bottom:6px">${a.title}</div>
+          <div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:10px">${sectionBadges}</div>
+          <div class="reader-points" style="display:none">
+            ${a.points.map(p => `<div style="font-size:12px;color:#374151;line-height:1.6;padding:4px 0;padding-left:12px;border-left:2px solid ${a.color};margin-bottom:6px">${p}</div>`).join('')}
+          </div>
+        </div>
+        <div style="font-size:18px;opacity:.3;transform:rotate(0deg);transition:transform .2s;flex-shrink:0" class="reader-chevron">›</div>
+      </div>
+    </div>`;
+  });
+
+  // Coverage checklist
+  const pct = Math.round(covered / total * 100);
+  html += `
+  <div style="margin:20px 16px 0;padding:16px;background:white;border-radius:12px;border:1px solid #E5E7EB">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
+      <div style="font-size:13px;font-weight:700;color:#111827">NCERT Coverage Checklist</div>
+      <div style="margin-left:auto;font-size:12px;font-weight:600;color:#059669">${covered}/${total}</div>
+    </div>
+    <div style="height:6px;background:#E5E7EB;border-radius:99px;margin-bottom:14px;overflow:hidden">
+      <div style="height:100%;width:${pct}%;background:#059669;border-radius:99px"></div>
+    </div>`;
+
+  let lastAtom = -1;
+  NCERT_CHECKLIST.forEach(item => {
+    if (item.atom !== lastAtom) {
+      const label = item.atom === 0 ? 'Not yet covered' : `Atom ${item.atom}`;
+      const labelColor = item.atom === 0 ? '#DC2626' : '#6B7280';
+      html += `<div style="font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:${labelColor};margin:10px 0 6px">${label}</div>`;
+      lastAtom = item.atom;
+    }
+    const icon = item.covered
+      ? `<span style="color:#059669;font-size:14px">✓</span>`
+      : `<span style="color:#DC2626;font-size:14px">○</span>`;
+    html += `<div style="display:flex;align-items:flex-start;gap:8px;padding:5px 0;border-bottom:1px solid #F3F4F6">
+      ${icon}
+      <div style="flex:1">
+        <span style="font-size:11px;font-weight:600;color:#6B7280;font-family:monospace">${item.section}</span>
+        <span style="font-size:12px;color:${item.covered?'#111827':'#6B7280'};margin-left:6px">${item.title}</span>
+      </div>
+    </div>`;
+  });
+
+  html += `</div><div style="height:40px"></div></div>`;
+  return html;
+}
+
+function buildReaderRight() {
+  let html = `<div style="padding:12px">`;
+  for (let p = 1; p <= 34; p++) {
+    const atom = PAGE_TO_ATOM[p] || 0;
+    const ncertPg = 159 + p;
+    const atomColor = atom > 0 ? ATOM_DATA[atom-1].color : '#9CA3AF';
+    html += `
+    <div data-page="${p}" class="reader-page" style="margin-bottom:10px;border-radius:10px;overflow:hidden;border:2px solid #E5E7EB;transition:border-color .25s">
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 12px;background:#F9FAFB;border-bottom:1px solid #E5E7EB">
+        <span style="font-size:11px;color:#6B7280;font-weight:500">NCERT pg ${ncertPg}</span>
+        ${atom > 0 ? `<span style="font-size:10px;font-weight:600;padding:2px 8px;border-radius:99px;background:${ATOM_DATA[atom-1].bg};color:${atomColor}">Atom ${atom}</span>` : `<span style="font-size:10px;color:#9CA3AF">—</span>`}
+      </div>
+      <img src="ncert_pages/page-${String(p).padStart(2,'0')}.png"
+           alt="NCERT pg ${ncertPg}" loading="lazy"
+           style="width:100%;display:block">
+    </div>`;
+  }
+  html += `</div>`;
+  return html;
+}
+
+function initReaderObserver() {
+  if (readerScrollObserver) readerScrollObserver.disconnect();
+  const rightPanel = document.getElementById('reader-right');
+  const pages = rightPanel.querySelectorAll('.reader-page');
+
+  readerScrollObserver = new IntersectionObserver((entries) => {
+    let topMost = null, topMostRatio = 0;
+    entries.forEach(e => {
+      if (e.isIntersecting && e.intersectionRatio > topMostRatio) {
+        topMost = e.target; topMostRatio = e.intersectionRatio;
+      }
+    });
+    if (topMost) {
+      const page = parseInt(topMost.dataset.page);
+      const atom = PAGE_TO_ATOM[page] || 0;
+      if (atom !== readerActiveAtom) activateReaderAtom(atom);
+    }
+  }, { root: rightPanel, threshold: [0.1, 0.3, 0.5] });
+
+  pages.forEach(p => readerScrollObserver.observe(p));
+}
+
+function activateReaderAtom(atomNum) {
+  readerActiveAtom = atomNum;
+  document.querySelectorAll('.reader-atom').forEach(el => {
+    const n = parseInt(el.dataset.atom);
+    const isActive = n === atomNum;
+    const data = ATOM_DATA[n-1];
+    el.style.borderColor = isActive && data ? data.color : 'transparent';
+    el.style.boxShadow = isActive ? `0 0 0 3px ${data.color}22` : 'none';
+    const pts = el.querySelector('.reader-points');
+    const chev = el.querySelector('.reader-chevron');
+    if (pts) pts.style.display = isActive ? 'block' : 'none';
+    if (chev) chev.style.transform = isActive ? 'rotate(90deg)' : 'rotate(0deg)';
+  });
+
+  if (atomNum > 0) {
+    const activeEl = document.getElementById(`ratom-${atomNum}`);
+    const leftPanel = document.getElementById('reader-left');
+    if (activeEl && leftPanel) {
+      const elTop = activeEl.offsetTop;
+      const panelH = leftPanel.clientHeight;
+      leftPanel.scrollTo({ top: elTop - panelH / 3, behavior: 'smooth' });
+    }
+  }
+}
+
+function readerScrollToPage(atomNum) {
+  const rightPanel = document.getElementById('reader-right');
+  for (let p = 1; p <= 34; p++) {
+    if (PAGE_TO_ATOM[p] === atomNum) {
+      const pageEl = rightPanel.querySelector(`[data-page="${p}"]`);
+      if (pageEl) { pageEl.scrollIntoView({ behavior: 'smooth', block: 'start' }); break; }
+    }
+  }
+}
 </script>
+
+<!-- PARALLEL READER OVERLAY -->
+<div id="reader-overlay" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:500;flex-direction:column;background:#F9FAFB">
+  <!-- Header -->
+  <div style="height:52px;background:white;border-bottom:1px solid #E5E7EB;display:flex;align-items:center;padding:0 20px;gap:16px;flex-shrink:0;z-index:10">
+    <button onclick="closeReader()" style="display:flex;align-items:center;gap:6px;padding:7px 14px;border:1px solid #E5E7EB;border-radius:8px;background:white;cursor:pointer;font-size:13px;font-weight:500;color:#374151">← Back</button>
+    <div style="font-size:14px;font-weight:600;color:#111827">Ch 10: Haloalkanes — NCERT Parallel Reader</div>
+    <div style="margin-left:auto;display:flex;align-items:center;gap:8px">
+      <div style="width:8px;height:8px;border-radius:50%;background:#059669"></div>
+      <span style="font-size:12px;color:#6B7280">Left highlights as you scroll the textbook</span>
+    </div>
+  </div>
+  <!-- Column headers -->
+  <div style="display:flex;background:#F3F4F6;border-bottom:1px solid #E5E7EB;flex-shrink:0">
+    <div style="width:380px;flex-shrink:0;padding:8px 20px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#6B7280;border-right:1px solid #E5E7EB">Your Study Notes</div>
+    <div style="flex:1;padding:8px 20px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#6B7280">NCERT Textbook (Class 12 Chemistry, Ch 10)</div>
+  </div>
+  <!-- Split pane -->
+  <div style="flex:1;display:flex;overflow:hidden">
+    <!-- Left: atom summaries + checklist -->
+    <div id="reader-left" style="width:380px;flex-shrink:0;overflow-y:auto;border-right:1px solid #E5E7EB;background:#F9FAFB"></div>
+    <!-- Right: NCERT pages -->
+    <div id="reader-right" style="flex:1;overflow-y:auto;background:#E5E7EB;padding:0"></div>
+  </div>
+</div>
+
 </body>
 </html>
