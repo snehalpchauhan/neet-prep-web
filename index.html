@@ -184,8 +184,12 @@
     <div class="logo-sub">Chapter 10 · 8 atoms · 20 MCQs</div>
   </div>
   <div class="nav">
+    <div class="nav-section">Chapter</div>
+    <div class="nav-item active" onclick="showIntro(this)" id="nav-intro">
+      <div class="nav-dot" style="background:#111827;color:#fff">▶</div> Chapter Intro
+    </div>
     <div class="nav-section">Self-Learn</div>
-    <div class="nav-item active" onclick="showAtom(0,this)" id="nav0">
+    <div class="nav-item" onclick="showAtom(0,this)" id="nav0">
       <div class="nav-dot" style="background:#EDE9FE;color:#5B3CF5">1</div> Classification
     </div>
     <div class="nav-item" onclick="showAtom(1,this)" id="nav1">
@@ -243,8 +247,179 @@
   <!-- LEARN MODE -->
   <div class="content" id="learn-mode">
 
+    <!-- CHAPTER INTRO -->
+    <div id="chapter-intro">
+      <!-- TV-style dark hero banner -->
+      <div style="background:#0F172A;border-radius:16px;padding:40px 36px 32px;margin-bottom:20px;position:relative;overflow:hidden">
+        <div style="position:absolute;top:0;right:0;width:300px;height:100%;background:radial-gradient(ellipse at right,#5B3CF520 0%,transparent 70%);pointer-events:none"></div>
+        <div style="font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#6B7280;margin-bottom:12px">Class 12 · Chemistry · Chapter 10</div>
+        <div style="font-size:32px;font-weight:700;color:#FFFFFF;line-height:1.2;margin-bottom:10px">Haloalkanes &amp;<br>Haloarenes</div>
+        <div style="font-size:15px;color:#94A3B8;line-height:1.6;max-width:520px;margin-bottom:28px">The chemistry of carbon-halogen bonds — from anaesthesia to refrigerants, from SN1 mechanisms to why benzene behaves so differently from alkanes.</div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:28px">
+          <span style="background:#1E293B;color:#94A3B8;font-size:12px;padding:5px 12px;border-radius:99px;border:1px solid #334155">8 learning atoms</span>
+          <span style="background:#1E293B;color:#94A3B8;font-size:12px;padding:5px 12px;border-radius:99px;border:1px solid #334155">20 NEET MCQs</span>
+          <span style="background:#1E293B;color:#94A3B8;font-size:12px;padding:5px 12px;border-radius:99px;border:1px solid #334155">~55 min to complete</span>
+          <span style="background:#5B3CF520;color:#A78BFA;font-size:12px;padding:5px 12px;border-radius:99px;border:1px solid #5B3CF540">High NEET weightage</span>
+        </div>
+        <button onclick="showAtom(0,null)" style="background:#5B3CF5;color:white;border:none;padding:12px 28px;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;letter-spacing:.01em">Start Learning →</button>
+      </div>
+
+      <!-- PREVIOUSLY ON... (what you need to know before this) -->
+      <div style="background:white;border:1px solid var(--border);border-radius:16px;padding:24px;margin-bottom:16px">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
+          <div style="width:3px;height:20px;background:#F59E0B;border-radius:2px"></div>
+          <div style="font-size:13px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#78350F">Previously on Class 11 &amp; 12 Chemistry</div>
+        </div>
+        <div style="font-size:13px;color:var(--text-muted);margin-bottom:14px">This chapter builds directly on these concepts. Quick-check yourself before starting:</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+          <div style="padding:10px 14px;background:#FFFBEB;border-radius:10px;border:1px solid #FDE68A;font-size:13px">
+            <span style="font-weight:600;color:#78350F">Organic nomenclature</span><br>
+            <span style="color:#92400E;font-size:12px">IUPAC naming of alkanes, alkenes, alcohols — you'll extend the same rules to haloalkanes</span>
+          </div>
+          <div style="padding:10px 14px;background:#FFFBEB;border-radius:10px;border:1px solid #FDE68A;font-size:13px">
+            <span style="font-weight:600;color:#78350F">Hybridisation (sp³ vs sp²)</span><br>
+            <span style="color:#92400E;font-size:12px">SN1 forms a planar sp² carbocation — understanding geometry explains stereochemistry</span>
+          </div>
+          <div style="padding:10px 14px;background:#FFFBEB;border-radius:10px;border:1px solid #FDE68A;font-size:13px">
+            <span style="font-weight:600;color:#78350F">Electronegativity &amp; bond polarity</span><br>
+            <span style="color:#92400E;font-size:12px">Why C-X bond is polar — this drives every substitution reaction in the chapter</span>
+          </div>
+          <div style="padding:10px 14px;background:#FFFBEB;border-radius:10px;border:1px solid #FDE68A;font-size:13px">
+            <span style="font-weight:600;color:#78350F">Aromaticity &amp; benzene structure</span><br>
+            <span style="color:#92400E;font-size:12px">Why haloarenes behave so differently from haloalkanes — it's all about the ring</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- IN THIS EPISODE -->
+      <div style="background:white;border:1px solid var(--border);border-radius:16px;padding:24px;margin-bottom:16px">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
+          <div style="width:3px;height:20px;background:#5B3CF5;border-radius:2px"></div>
+          <div style="font-size:13px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#3C2899">In this chapter — 8 things you'll master</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div style="display:flex;gap:12px;align-items:flex-start;padding:10px;border-radius:10px;background:#F9FAFB">
+            <div style="width:26px;height:26px;background:#EDE9FE;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#5B3CF5;flex-shrink:0">1</div>
+            <div><div style="font-size:13px;font-weight:600">Classification &amp; Nomenclature</div><div style="font-size:12px;color:var(--text-muted);margin-top:2px">How to name and classify any halogen compound in seconds — 1-2 NEET Qs every year</div></div>
+          </div>
+          <div style="display:flex;gap:12px;align-items:flex-start;padding:10px;border-radius:10px;background:#F9FAFB">
+            <div style="width:26px;height:26px;background:#E0F2FE;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#0284C7;flex-shrink:0">2</div>
+            <div><div style="font-size:13px;font-weight:600">Nature of C-X Bond</div><div style="font-size:12px;color:var(--text-muted);margin-top:2px">Why C-F is the shortest yet strongest — the single most common trick question</div></div>
+          </div>
+          <div style="display:flex;gap:12px;align-items:flex-start;padding:10px;border-radius:10px;background:#F9FAFB">
+            <div style="width:26px;height:26px;background:#ECFDF5;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#059669;flex-shrink:0">3</div>
+            <div><div style="font-size:13px;font-weight:600">Preparation Methods</div><div style="font-size:12px;color:var(--text-muted);margin-top:2px">Finkelstein, Swarts, Wurtz, Markovnikov, anti-Markovnikov — all the named reactions</div></div>
+          </div>
+          <div style="display:flex;gap:12px;align-items:flex-start;padding:10px;border-radius:10px;background:#F9FAFB">
+            <div style="width:26px;height:26px;background:#FFF7ED;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#EA580C;flex-shrink:0">4</div>
+            <div><div style="font-size:13px;font-weight:600">Haloarenes Preparation</div><div style="font-size:12px;color:var(--text-muted);margin-top:2px">Sandmeyer's, Balz-Schiemann — and the iodide exception everyone gets wrong</div></div>
+          </div>
+          <div style="display:flex;gap:12px;align-items:flex-start;padding:10px;border-radius:10px;background:#FEF3C7">
+            <div style="width:26px;height:26px;background:#F59E0B;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:white;flex-shrink:0">5</div>
+            <div><div style="font-size:13px;font-weight:600;color:#78350F">SN1 Mechanism ⭐ High priority</div><div style="font-size:12px;color:#92400E;margin-top:2px">The waiter analogy — leaving group goes first, carbocation forms, then Nu attacks. Results in racemisation.</div></div>
+          </div>
+          <div style="display:flex;gap:12px;align-items:flex-start;padding:10px;border-radius:10px;background:#ECFDF5">
+            <div style="width:26px;height:26px;background:#059669;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:white;flex-shrink:0">6</div>
+            <div><div style="font-size:13px;font-weight:600;color:#065F46">SN2 Mechanism ⭐ Most tested</div><div style="font-size:12px;color:#047857;margin-top:2px">One-step backside attack. Complete inversion. The SN1 vs SN2 table alone fetches 2-3 NEET marks.</div></div>
+          </div>
+          <div style="display:flex;gap:12px;align-items:flex-start;padding:10px;border-radius:10px;background:#F9FAFB">
+            <div style="width:26px;height:26px;background:#F5F3FF;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#7C3AED;flex-shrink:0">7</div>
+            <div><div style="font-size:13px;font-weight:600">Elimination Reactions</div><div style="font-size:12px;color:var(--text-muted);margin-top:2px">E1 vs E2, Saytzeff's rule — alcoholic KOH is elimination, aqueous KOH is substitution</div></div>
+          </div>
+          <div style="display:flex;gap:12px;align-items:flex-start;padding:10px;border-radius:10px;background:#F9FAFB">
+            <div style="width:26px;height:26px;background:#E0F2FE;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#0284C7;flex-shrink:0">8</div>
+            <div><div style="font-size:13px;font-weight:600">Haloarene Reactions</div><div style="font-size:12px;color:var(--text-muted);margin-top:2px">Why halogens are o/p directors but ring deactivators — the paradox that confuses everyone</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- REAL WORLD — where this matters -->
+      <div style="background:white;border:1px solid var(--border);border-radius:16px;padding:24px;margin-bottom:20px">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
+          <div style="width:3px;height:20px;background:#059669;border-radius:2px"></div>
+          <div style="font-size:13px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#065F46">Real world — where you already use this chapter</div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:12px">
+          <div style="border-radius:12px;overflow:hidden;border:1px solid var(--border)">
+            <div style="background:#0F172A;padding:16px;text-align:center;font-size:28px">❄️</div>
+            <div style="padding:12px">
+              <div style="font-size:13px;font-weight:600;margin-bottom:4px">Your AC &amp; Fridge</div>
+              <div style="font-size:12px;color:var(--text-muted);line-height:1.5">Refrigerants like Freon are CFCs — chlorofluorocarbons. The C-F and C-Cl bonds you study here are exactly what makes them work (and destroy the ozone layer).</div>
+            </div>
+          </div>
+          <div style="border-radius:12px;overflow:hidden;border:1px solid var(--border)">
+            <div style="background:#1E3A5F;padding:16px;text-align:center;font-size:28px">💊</div>
+            <div style="padding:12px">
+              <div style="font-size:13px;font-weight:600;margin-bottom:4px">Medicines &amp; Anaesthesia</div>
+              <div style="font-size:12px;color:var(--text-muted);line-height:1.5">Chloroform (CHCl₃) was the world's first anaesthetic. Modern drugs like halothane, used in surgery, are haloalkanes. The C-X bond's properties make them biologically active.</div>
+            </div>
+          </div>
+          <div style="border-radius:12px;overflow:hidden;border:1px solid var(--border)">
+            <div style="background:#1A3320;padding:16px;text-align:center;font-size:28px">🌾</div>
+            <div style="padding:12px">
+              <div style="font-size:13px;font-weight:600;margin-bottom:4px">Pesticides &amp; DDT</div>
+              <div style="font-size:12px;color:var(--text-muted);line-height:1.5">DDT (dichlorodiphenyltrichloroethane) is made from chlorobenzene — a haloarene. It saved millions from malaria. Understanding haloarene reactions explains how it was synthesised.</div>
+            </div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+          <div style="border-radius:12px;padding:14px;border:1px solid var(--border);display:flex;gap:12px;align-items:flex-start">
+            <div style="font-size:24px;flex-shrink:0">🔥</div>
+            <div>
+              <div style="font-size:13px;font-weight:600;margin-bottom:3px">Fire Extinguishers</div>
+              <div style="font-size:12px;color:var(--text-muted);line-height:1.5">Halon fire extinguishers use bromotrifluoromethane (CF₃Br). The SN1/SN2 mechanisms explain why halogen compounds react so readily — and why they're so effective at disrupting combustion chain reactions.</div>
+            </div>
+          </div>
+          <div style="border-radius:12px;padding:14px;border:1px solid var(--border);display:flex;gap:12px;align-items:flex-start">
+            <div style="font-size:24px;flex-shrink:0">🧪</div>
+            <div>
+              <div style="font-size:13px;font-weight:600;margin-bottom:3px">Grignard Reagents in Industry</div>
+              <div style="font-size:12px;color:var(--text-muted);line-height:1.5">Every pharmaceutical company uses Grignard reagents (RMgX) made from haloalkanes to build complex drug molecules. The SN2 mechanism you'll learn is literally how blockbuster drugs are manufactured.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- NEET SNAPSHOT -->
+      <div style="background:#0F172A;border-radius:16px;padding:24px;margin-bottom:20px">
+        <div style="font-size:13px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#A78BFA;margin-bottom:16px">NEET exam snapshot — what to expect</div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px">
+          <div style="text-align:center">
+            <div style="font-size:32px;font-weight:700;color:white">3–4</div>
+            <div style="font-size:11px;color:#64748B;margin-top:2px">questions per year<br>from this chapter</div>
+          </div>
+          <div style="text-align:center">
+            <div style="font-size:32px;font-weight:700;color:#A78BFA">12–16</div>
+            <div style="font-size:11px;color:#64748B;margin-top:2px">marks at stake<br>(4 per correct answer)</div>
+          </div>
+          <div style="text-align:center">
+            <div style="font-size:32px;font-weight:700;color:#34D399">SN1/2</div>
+            <div style="font-size:11px;color:#64748B;margin-top:2px">most tested topic<br>appears every year</div>
+          </div>
+          <div style="text-align:center">
+            <div style="font-size:32px;font-weight:700;color:#FCD34D">2013</div>
+            <div style="font-size:11px;color:#64748B;margin-top:2px">onwards — PYQs<br>available to practice</div>
+          </div>
+        </div>
+        <div style="background:#1E293B;border-radius:10px;padding:14px">
+          <div style="font-size:12px;font-weight:600;color:#94A3B8;margin-bottom:8px">Most frequently tested topics in NEET (in order)</div>
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <div style="display:flex;align-items:center;gap:8px"><div style="height:6px;background:#5B3CF5;border-radius:3px;width:90%"></div><div style="font-size:11px;color:#94A3B8;white-space:nowrap">SN1 vs SN2</div></div>
+            <div style="display:flex;align-items:center;gap:8px"><div style="height:6px;background:#0284C7;border-radius:3px;width:75%"></div><div style="font-size:11px;color:#94A3B8;white-space:nowrap">Nomenclature</div></div>
+            <div style="display:flex;align-items:center;gap:8px"><div style="height:6px;background:#059669;border-radius:3px;width:65%"></div><div style="font-size:11px;color:#94A3B8;white-space:nowrap">Preparation reactions</div></div>
+            <div style="display:flex;align-items:center;gap:8px"><div style="height:6px;background:#D97706;border-radius:3px;width:55%"></div><div style="font-size:11px;color:#94A3B8;white-space:nowrap">Elimination (Saytzeff)</div></div>
+            <div style="display:flex;align-items:center;gap:8px"><div style="height:6px;background:#DC2626;border-radius:3px;width:40%"></div><div style="font-size:11px;color:#94A3B8;white-space:nowrap">Haloarene reactions</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div style="text-align:center;padding-bottom:8px">
+        <button onclick="showAtom(0,null)" style="background:#5B3CF5;color:white;border:none;padding:14px 36px;border-radius:10px;font-size:15px;font-weight:600;cursor:pointer">Start Atom 1 — Classification →</button>
+      </div>
+    </div>
+
     <!-- ATOM 1 -->
-    <div class="atom-view" id="atom-0">
+    <div class="atom-view hidden" id="atom-0">
       <div class="atom-header">
         <div class="breadcrumb">Ch 10 · Atom 1 of 8</div>
         <div class="atom-title">Classification &amp; Nomenclature</div>
@@ -760,28 +935,44 @@
 const atoms = [
   {id:0},{id:1},{id:2},{id:3},{id:4},{id:5},{id:6},{id:7}
 ];
-let currentAtom = 0;
-let visitedAtoms = new Set([0]);
+let currentAtom = -1; // -1 = intro
+let visitedAtoms = new Set();
 let currentMode = 'learn';
+let onIntro = true;
+
+function showIntro(navEl) {
+  document.getElementById('chapter-intro').classList.remove('hidden');
+  document.querySelectorAll('.atom-view').forEach(v => v.classList.add('hidden'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  if(navEl) navEl.classList.add('active');
+  else document.getElementById('nav-intro').classList.add('active');
+  currentAtom = -1;
+  onIntro = true;
+  window.scrollTo({top:0,behavior:'smooth'});
+}
 
 function showAtom(idx, navEl) {
+  document.getElementById('chapter-intro').classList.add('hidden');
   document.querySelectorAll('.atom-view').forEach(v => v.classList.add('hidden'));
   document.getElementById('atom-'+idx).classList.remove('hidden');
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
   if(navEl) navEl.classList.add('active');
   else document.getElementById('nav'+idx).classList.add('active');
   currentAtom = idx;
+  onIntro = false;
   visitedAtoms.add(idx);
   updateProgress();
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
 function nextAtom() {
+  if(onIntro) { showAtom(0, null); return; }
   if(currentAtom < 7) showAtom(currentAtom+1, null);
   else startQuiz();
 }
 
 function prevAtom() {
+  if(currentAtom === 0) { showIntro(null); return; }
   if(currentAtom > 0) showAtom(currentAtom-1, null);
 }
 
