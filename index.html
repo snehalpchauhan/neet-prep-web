@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NEET Prep · Ch 10 Haloalkanes & Haloarenes</title>
+<title>NEET Prep — Class 11 &amp; 12 Chemistry</title>
 <style>
   :root {
     --purple: #5B3CF5;
@@ -164,6 +164,53 @@
 
   .hidden { display: none !important; }
 
+  /* HOME SCREEN */
+  .home-screen { min-height: 100vh; background: var(--bg); }
+  .home-topbar { background: var(--surface); border-bottom: 1px solid var(--border); padding: 0 40px; display: flex; align-items: center; justify-content: space-between; height: 60px; }
+  .home-logo { display: flex; align-items: center; gap: 10px; }
+  .home-logo-icon { width: 32px; height: 32px; background: #0F172A; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+  .home-logo-text { font-size: 15px; font-weight: 700; color: var(--text); }
+  .home-logo-sub { font-size: 12px; color: var(--text-muted); }
+  .home-body { max-width: 960px; margin: 0 auto; padding: 40px 32px; }
+  .home-greeting { font-size: 26px; font-weight: 700; margin-bottom: 4px; }
+  .home-sub { font-size: 15px; color: var(--text-muted); margin-bottom: 32px; }
+
+  /* Standard tabs */
+  .std-tabs { display: flex; gap: 0; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 4px; margin-bottom: 28px; width: fit-content; }
+  .std-tab { padding: 8px 28px; border-radius: 9px; font-size: 14px; font-weight: 500; cursor: pointer; border: none; background: none; color: var(--text-muted); transition: all .2s; }
+  .std-tab.active { background: #0F172A; color: white; }
+
+  /* Subject cards */
+  .subject-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-bottom: 36px; }
+  .subject-card { border-radius: 14px; padding: 20px 16px; cursor: pointer; border: 2px solid transparent; transition: all .2s; position: relative; overflow: hidden; }
+  .subject-card.active { border-color: currentColor; }
+  .subject-card:hover { transform: translateY(-2px); }
+  .subject-icon { font-size: 28px; margin-bottom: 10px; }
+  .subject-name { font-size: 14px; font-weight: 700; margin-bottom: 2px; }
+  .subject-count { font-size: 11px; opacity: .7; }
+  .subject-card .coming { position: absolute; top: 10px; right: 10px; font-size: 9px; font-weight: 600; padding: 2px 7px; border-radius: 99px; background: rgba(0,0,0,.15); color: inherit; }
+
+  /* Chapter list */
+  .chapter-section-title { font-size: 13px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: .07em; margin-bottom: 14px; }
+  .chapter-list { display: flex; flex-direction: column; gap: 6px; }
+  .chapter-row { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 14px 18px; display: flex; align-items: center; gap: 14px; cursor: pointer; transition: all .2s; }
+  .chapter-row:hover { border-color: #5B3CF5; background: #FAFAFA; transform: translateX(2px); }
+  .chapter-row.locked { opacity: .5; cursor: default; }
+  .chapter-row.locked:hover { transform: none; border-color: var(--border); background: var(--surface); }
+  .ch-num { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; }
+  .ch-info { flex: 1; }
+  .ch-name { font-size: 14px; font-weight: 500; margin-bottom: 2px; }
+  .ch-meta { font-size: 12px; color: var(--text-muted); }
+  .ch-badge { font-size: 11px; padding: 3px 10px; border-radius: 99px; font-weight: 500; flex-shrink: 0; }
+  .ch-arrow { font-size: 16px; color: var(--text-muted); flex-shrink: 0; }
+
+  /* Breadcrumb in topbar */
+  .breadcrumb-nav { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--text-muted); }
+  .breadcrumb-nav span { cursor: pointer; }
+  .breadcrumb-nav span:hover { color: var(--text); }
+  .breadcrumb-nav .sep { color: var(--border); }
+  .breadcrumb-nav .current { color: var(--text); font-weight: 500; }
+
   @media (max-width: 768px) {
     .sidebar { display: none; }
     .main { margin-left: 0; }
@@ -171,13 +218,75 @@
     .kp-grid { grid-template-columns: 1fr; }
     .tier-grid { grid-template-columns: 1fr; }
     .q-options { grid-template-columns: 1fr; }
+    .subject-grid { grid-template-columns: 1fr 1fr; }
+    .home-body { padding: 24px 16px; }
+    .home-topbar { padding: 0 16px; }
   }
 </style>
 </head>
 <body>
 
+<!-- HOME SCREEN -->
+<div id="home-screen" class="home-screen">
+  <div class="home-topbar">
+    <div class="home-logo">
+      <div class="home-logo-icon">⚗️</div>
+      <div>
+        <div class="home-logo-text">NEET Prep</div>
+        <div class="home-logo-sub">Class 11 &amp; 12 · AI-powered</div>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px">
+      <div style="font-size:13px;color:var(--text-muted)">Arjun · Class 12</div>
+      <div style="width:32px;height:32px;background:#EDE9FE;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#5B3CF5">A</div>
+    </div>
+  </div>
+
+  <div class="home-body">
+    <div class="home-greeting">Good morning, Arjun 👋</div>
+    <div class="home-sub">Pick up where you left off, or start a new chapter.</div>
+
+    <!-- Standard selector -->
+    <div class="std-tabs">
+      <button class="std-tab active" id="std11" onclick="selectStd(11)">Class 11</button>
+      <button class="std-tab" id="std12" onclick="selectStd(12)">Class 12</button>
+    </div>
+
+    <!-- Subject selector -->
+    <div class="subject-grid" id="subject-grid">
+      <div class="subject-card active" id="subj-phy" onclick="selectSubject('physics')" style="background:#EFF6FF;color:#1D4ED8">
+        <div class="subject-icon">⚡</div>
+        <div class="subject-name">Physics</div>
+        <div class="subject-count" id="phy-count">15 chapters</div>
+        <span class="coming">Soon</span>
+      </div>
+      <div class="subject-card" id="subj-chem" onclick="selectSubject('chemistry')" style="background:#ECFDF5;color:#065F46">
+        <div class="subject-icon">⚗️</div>
+        <div class="subject-name">Chemistry</div>
+        <div class="subject-count" id="chem-count">16 chapters</div>
+      </div>
+      <div class="subject-card" id="subj-bio" onclick="selectSubject('biology')" style="background:#FFF7ED;color:#C2410C">
+        <div class="subject-icon">🧬</div>
+        <div class="subject-name">Biology</div>
+        <div class="subject-count" id="bio-count">16 chapters</div>
+        <span class="coming">Soon</span>
+      </div>
+      <div class="subject-card" id="subj-math" onclick="selectSubject('maths')" style="background:#F5F3FF;color:#5B21B6">
+        <div class="subject-icon">📐</div>
+        <div class="subject-name">Maths</div>
+        <div class="subject-count" id="math-count">13 chapters</div>
+        <span class="coming">Soon</span>
+      </div>
+    </div>
+
+    <!-- Chapter list -->
+    <div class="chapter-section-title" id="chapter-section-label">Chemistry · Class 11</div>
+    <div class="chapter-list" id="chapter-list"></div>
+  </div>
+</div>
+
 <!-- SIDEBAR -->
-<nav class="sidebar">
+<nav class="sidebar" id="sidebar" style="display:none">
   <div class="logo">
     <div class="logo-tag">Class 12 · Chemistry</div>
     <div class="logo-title">Haloalkanes &amp; Haloarenes</div>
@@ -230,16 +339,23 @@
 </nav>
 
 <!-- MAIN -->
-<div class="main">
+<div class="main" id="main-screen" style="display:none">
   <div class="topbar">
     <div class="topbar-left">
+      <div class="breadcrumb-nav">
+        <span onclick="goHome()">Home</span>
+        <span class="sep">›</span>
+        <span onclick="goHome()">Chemistry</span>
+        <span class="sep">›</span>
+        <span class="current" id="topbar-chapter-name">Ch 10 Haloalkanes</span>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px">
       <div class="mode-tabs">
         <button class="mode-tab active" id="tab-learn" onclick="setMode('learn')">Learn</button>
         <button class="mode-tab" id="tab-quiz" onclick="setMode('quiz')">Quiz</button>
       </div>
-    </div>
-    <div style="display:flex;gap:8px">
-      <button class="btn" onclick="prevAtom()">← Prev</button>
+      <button class="btn" onclick="prevAtom()">←</button>
       <button class="btn btn-primary" onclick="nextAtom()">Next →</button>
     </div>
   </div>
@@ -932,17 +1048,133 @@
 </div>
 
 <script>
-const atoms = [
-  {id:0},{id:1},{id:2},{id:3},{id:4},{id:5},{id:6},{id:7}
-];
-let currentAtom = -1; // -1 = intro
+let currentAtom = -1;
 let visitedAtoms = new Set();
 let currentMode = 'learn';
 let onIntro = true;
+let currentStd = 11;
+let currentSubject = 'chemistry';
 
+/* ── CHAPTER DATA ─────────────────────────────── */
+const courseData = {
+  11: {
+    chemistry: [
+      { num:1,  name:'Some Basic Concepts of Chemistry', atoms:8, mins:55, available:false },
+      { num:2,  name:'Structure of Atom', atoms:8, mins:55, available:false },
+      { num:3,  name:'Classification of Elements & Periodicity', atoms:7, mins:50, available:false },
+      { num:4,  name:'Chemical Bonding & Molecular Structure', atoms:9, mins:60, available:false },
+      { num:5,  name:'States of Matter', atoms:6, mins:45, available:false },
+      { num:6,  name:'Thermodynamics', atoms:8, mins:55, available:false },
+      { num:7,  name:'Equilibrium', atoms:8, mins:55, available:false },
+      { num:8,  name:'Redox Reactions', atoms:6, mins:40, available:false },
+      { num:9,  name:'Hydrogen', atoms:5, mins:35, available:false },
+      { num:10, name:'The s-Block Elements', atoms:6, mins:40, available:false },
+      { num:11, name:'The p-Block Elements', atoms:7, mins:48, available:false },
+      { num:12, name:'Organic Chemistry — Basic Principles', atoms:9, mins:60, available:false },
+      { num:13, name:'Hydrocarbons', atoms:8, mins:55, available:false },
+      { num:14, name:'Environmental Chemistry', atoms:4, mins:28, available:false },
+    ],
+    physics: [], biology: [], maths: []
+  },
+  12: {
+    chemistry: [
+      { num:1,  name:'The Solid State', atoms:7, mins:48, available:false },
+      { num:2,  name:'Solutions', atoms:8, mins:55, available:false },
+      { num:3,  name:'Electrochemistry', atoms:8, mins:55, available:false },
+      { num:4,  name:'Chemical Kinetics', atoms:7, mins:50, available:false },
+      { num:5,  name:'Surface Chemistry', atoms:5, mins:35, available:false },
+      { num:6,  name:'General Principles of Isolation of Elements', atoms:5, mins:35, available:false },
+      { num:7,  name:'The p-Block Elements', atoms:8, mins:55, available:false },
+      { num:8,  name:'The d and f Block Elements', atoms:7, mins:48, available:false },
+      { num:9,  name:'Coordination Compounds', atoms:8, mins:55, available:false },
+      { num:10, name:'Haloalkanes and Haloarenes', atoms:8, mins:55, available:true, neet:'High', tag:'Ready' },
+      { num:11, name:'Alcohols, Phenols and Ethers', atoms:8, mins:55, available:false },
+      { num:12, name:'Aldehydes, Ketones and Carboxylic Acids', atoms:9, mins:60, available:false },
+      { num:13, name:'Amines', atoms:7, mins:48, available:false },
+      { num:14, name:'Biomolecules', atoms:6, mins:42, available:false },
+      { num:15, name:'Polymers', atoms:5, mins:35, available:false },
+      { num:16, name:'Chemistry in Everyday Life', atoms:5, mins:35, available:false },
+    ],
+    physics: [], biology: [], maths: []
+  }
+};
+
+const subjectColors = {
+  physics:   { bg:'#EFF6FF', color:'#1D4ED8', num:'#DBEAFE', numText:'#1D4ED8' },
+  chemistry: { bg:'#ECFDF5', color:'#065F46', num:'#D1FAE5', numText:'#059669' },
+  biology:   { bg:'#FFF7ED', color:'#C2410C', num:'#FED7AA', numText:'#EA580C' },
+  maths:     { bg:'#F5F3FF', color:'#5B21B6', num:'#EDE9FE', numText:'#7C3AED' },
+};
+
+const neetColors = { 'High':'#FEE2E2|#991B1B', 'Medium':'#FEF3C7|#78350F' };
+
+/* ── HOME SCREEN ──────────────────────────────── */
+function selectStd(std) {
+  currentStd = std;
+  document.getElementById('std11').classList.toggle('active', std===11);
+  document.getElementById('std12').classList.toggle('active', std===12);
+  renderChapters();
+}
+
+function selectSubject(subj) {
+  currentSubject = subj;
+  const idMap = {physics:'phy',chemistry:'chem',biology:'bio',maths:'math'};
+  document.querySelectorAll('.subject-card').forEach(c => c.classList.remove('active'));
+  document.getElementById('subj-'+idMap[subj]).classList.add('active');
+  renderChapters();
+}
+
+function renderChapters() {
+  const chapters = courseData[currentStd][currentSubject] || [];
+  const subjName = currentSubject.charAt(0).toUpperCase()+currentSubject.slice(1);
+  document.getElementById('chapter-section-label').textContent = `${subjName} · Class ${currentStd}`;
+
+  const list = document.getElementById('chapter-list');
+  const c = subjectColors[currentSubject];
+
+  if(!chapters.length) {
+    list.innerHTML = `<div style="text-align:center;padding:40px;color:var(--text-muted);font-size:14px">Coming soon — content being generated with AI ✨</div>`;
+    return;
+  }
+
+  list.innerHTML = chapters.map(ch => {
+    const neet = ch.neet ? (() => { const [bg,col]=ch.neet==='High'?['#FEE2E2','#991B1B']:['#FEF3C7','#78350F']; return `<span class="ch-badge" style="background:${bg};color:${col}">${ch.neet} NEET</span>`; })() : '';
+    const tag  = ch.tag  ? `<span class="ch-badge" style="background:#D1FAE5;color:#065F46">${ch.tag}</span>` : '';
+    const lock = !ch.available ? `<span style="font-size:18px">🔒</span>` : `<span class="ch-arrow">›</span>`;
+    return `<div class="chapter-row${ch.available?'':' locked'}" onclick="${ch.available?`openChapter(${ch.num})`:''}">
+      <div class="ch-num" style="background:${c.num};color:${c.numText}">${ch.num}</div>
+      <div class="ch-info">
+        <div class="ch-name">${ch.name}</div>
+        <div class="ch-meta">${ch.atoms} atoms · ~${ch.mins} min</div>
+      </div>
+      ${neet}${tag}${lock}
+    </div>`;
+  }).join('');
+}
+
+function openChapter(num) {
+  document.getElementById('home-screen').style.display = 'none';
+  document.getElementById('sidebar').style.display = 'flex';
+  document.getElementById('main-screen').style.display = 'block';
+  showIntro(null);
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function goHome() {
+  document.getElementById('home-screen').style.display = 'block';
+  document.getElementById('sidebar').style.display = 'none';
+  document.getElementById('main-screen').style.display = 'none';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* ── CHAPTER VIEW ─────────────────────────────── */
 function showIntro(navEl) {
   document.getElementById('chapter-intro').classList.remove('hidden');
   document.querySelectorAll('.atom-view').forEach(v => v.classList.add('hidden'));
+  document.getElementById('learn-mode').classList.remove('hidden');
+  document.getElementById('quiz-mode').classList.add('hidden');
+  document.getElementById('tab-learn').classList.add('active');
+  document.getElementById('tab-quiz').classList.remove('active');
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
   if(navEl) navEl.classList.add('active');
   else document.getElementById('nav-intro').classList.add('active');
@@ -955,11 +1187,16 @@ function showAtom(idx, navEl) {
   document.getElementById('chapter-intro').classList.add('hidden');
   document.querySelectorAll('.atom-view').forEach(v => v.classList.add('hidden'));
   document.getElementById('atom-'+idx).classList.remove('hidden');
+  document.getElementById('learn-mode').classList.remove('hidden');
+  document.getElementById('quiz-mode').classList.add('hidden');
+  document.getElementById('tab-learn').classList.add('active');
+  document.getElementById('tab-quiz').classList.remove('active');
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
   if(navEl) navEl.classList.add('active');
-  else document.getElementById('nav'+idx).classList.add('active');
+  else { const n = document.getElementById('nav'+idx); if(n) n.classList.add('active'); }
   currentAtom = idx;
   onIntro = false;
+  currentMode = 'learn';
   visitedAtoms.add(idx);
   updateProgress();
   window.scrollTo({top:0,behavior:'smooth'});
@@ -972,6 +1209,7 @@ function nextAtom() {
 }
 
 function prevAtom() {
+  if(onIntro) { goHome(); return; }
   if(currentAtom === 0) { showIntro(null); return; }
   if(currentAtom > 0) showAtom(currentAtom-1, null);
 }
@@ -1163,6 +1401,10 @@ function retryQuiz() {
   document.getElementById('quiz-dots').innerHTML = '';
   buildQuiz();
 }
+
+// Init — show home screen and default to Class 11 Chemistry
+selectStd(11);
+selectSubject('chemistry');
 </script>
 </body>
 </html>
