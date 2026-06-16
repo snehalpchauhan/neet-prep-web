@@ -1577,6 +1577,141 @@ selectStd(11);
 selectSubject('chemistry');
 injectTextbookPanels();
 /* ── PARALLEL READER ──────────────────────────── */
+/* ── PARALLEL READER — SECTION-BASED DATA ──────── */
+// Each entry = one NCERT sub-section shown in the left panel
+// pages[] = PDF page numbers that trigger this section to expand
+const SECTION_DATA = [
+  { id:'s611', label:'§6.1.1', title:'Classification by number of halogens',
+    color:'#5B3CF5', bgLight:'#EDE9FE', pages:[2],
+    hook:'Think of organising your wardrobe by number of items in each pocket — NCERT first groups haloalkanes by how many halogen atoms are present.',
+    content:'Compounds are classified as <strong>monohalogen</strong> (one halogen atom, e.g. CH₃Cl), <strong>dihalogen</strong> (two halogen atoms, e.g. CH₂Cl₂), or <strong>polyhalogen</strong> (tri-, tetra- etc., e.g. CHCl₃, CCl₄). Within dihalogen compounds: <strong>geminal dihalides</strong> have both halogens on the same carbon (e.g. CH₃CHCl₂ = 1,1-dichloroethane); <strong>vicinal dihalides</strong> have halogens on adjacent carbons (e.g. CH₃CHClCH₂Cl = 1,2-dichloropropane). This classification appears in NCERT as Section 6.1.1 and is the first system taught.',
+    points:['Monohalogen (1 X), dihalogen (2 X), polyhalogen (3+ X) — based purely on count of halogen atoms','Geminal dihalide = both X on same carbon; vicinal = X on adjacent carbons','CHCl₃ (chloroform) = trihalogen; CCl₄ (carbon tetrachloride) = tetrahalogen'],
+    mistakes:['Confusing geminal and vicinal: CHCl₂CH₃ is geminal (both Cl on C-1); CH₂ClCH₂Cl is vicinal (one Cl each on C-1 and C-2)'] },
+
+  { id:'s612', label:'§6.1.2', title:'Classification by type of carbon bearing the halogen',
+    color:'#5B3CF5', bgLight:'#EDE9FE', pages:[2,3],
+    hook:'Same compound, different classification lens — now we look at the carbon that holds the halogen, not how many halogens there are.',
+    content:'<strong>Primary (1°)</strong>: halogen on a carbon attached to only one other carbon (e.g. CH₃CH₂Cl). <strong>Secondary (2°)</strong>: halogen on carbon attached to two other carbons (e.g. (CH₃)₂CHBr). <strong>Tertiary (3°)</strong>: halogen on carbon attached to three other carbons (e.g. (CH₃)₃CCl). Special sub-classes: <strong>Allylic halides</strong> — halogen on sp³ carbon adjacent to a C=C double bond (e.g. allyl chloride CH₂=CHCH₂Cl). <strong>Benzylic halides</strong> — halogen on sp³ carbon adjacent to a benzene ring (e.g. benzyl chloride C₆H₅CH₂Cl). Both allylic and benzylic halides show unusually high reactivity in SN1 because the resulting carbocation is stabilised by resonance.',
+    points:['1°/2°/3° refers to the carbon bearing X — not to the halogen itself','Allylic (C next to C=C) and benzylic (C next to ring) → high SN1 reactivity via resonance-stabilised carbocations','This classification is essential for predicting SN1 vs SN2 reactivity'],
+    mistakes:['Confusing allylic and vinylic: CH₂=CHCH₂Cl is allylic (Cl on sp³ C); CH₂=CHCl is vinylic (Cl on sp² C) — opposite reactivities','Saying (CH₃)₃CCl is "primary" — count carbons on the carbon bearing Cl: there are 3, so it is tertiary'] },
+
+  { id:'s613', label:'§6.1.3', title:'Vinylic and aryl halides',
+    color:'#0284C7', bgLight:'#E0F2FE', pages:[3],
+    hook:'Unlike their allylic/benzylic cousins, these halides bond directly to an sp² carbon — and that single difference makes them almost completely unreactive toward nucleophiles.',
+    content:'<strong>Vinylic halides</strong>: halogen directly on a carbon of a C=C double bond (sp² carbon), e.g. vinyl chloride CH₂=CHCl, 2-chloropropene CH₃CCl=CH₂. <strong>Aryl halides (haloarenes)</strong>: halogen directly bonded to an aromatic ring carbon (sp² carbon), e.g. chlorobenzene C₆H₅Cl. Both types are virtually unreactive toward nucleophilic substitution because: (1) the C–X bond has partial double bond character (resonance delocalisation); (2) the sp² carbon holds electron pairs more tightly than sp³; (3) no SN1 (phenyl/vinyl cations are very unstable) and no SN2 (backside attack blocked). These two classifications complete the NCERT Section 6.1.3 picture.',
+    points:['Vinylic: X on C=C (sp²); aryl: X on aromatic ring (sp²) — both very unreactive in SN1/SN2','C–X bond shorter and stronger than in haloalkanes due to sp² character — harder to break','Contrast: allylic/benzylic (adjacent to unsaturation) = reactive; vinylic/aryl (directly on unsaturation) = unreactive'],
+    mistakes:['Saying "all primary halides are reactive in SN2" — vinylic primary halides are an exception (sp² blocks backside attack)'] },
+
+  { id:'s62', label:'§6.2', title:'IUPAC Nomenclature',
+    color:'#059669', bgLight:'#ECFDF5', pages:[4,5],
+    hook:'Just like a postal address, IUPAC names follow a strict format — get one part wrong and you\'ve named the wrong molecule entirely.',
+    content:'Halogens are named as prefixes: <strong>fluoro</strong> (F), <strong>chloro</strong> (Cl), <strong>bromo</strong> (Br), <strong>iodo</strong> (I). Rules: (1) Choose the longest chain containing the halogen. (2) Number the chain from the end giving the halogen the lowest possible locant. (3) If multiple halogens, list alphabetically. (4) For haloarenes: the ring carbon bearing the halogen is C-1; use ortho (1,2), meta (1,3), para (1,4) or IUPAC numbering. Common name examples: gem dihalides — 1,1-dichloroethane (ethylidene chloride); vic dihalides — 1,2-dichloroethane (ethylene dichloride). Allylic: 3-chloropropene (allyl chloride). Benzylic: phenylmethyl chloride (benzyl chloride).',
+    points:['Lowest locant rule — number from end giving smaller locant to the halogen','Multiple halogens listed alphabetically as prefixes: bromo before chloro before fluoro before iodo','Haloarenes: ring carbon with X = C-1; use ortho/meta/para or full IUPAC numbering'],
+    mistakes:['Giving higher locant to halogen instead of lowest locant (number from wrong end of chain)','Alphabetical order confusion: bromo comes before chloro alphabetically, so it gets the lower prefix number'] },
+
+  { id:'s63', label:'§6.3', title:'Nature of C–X Bond',
+    color:'#0284C7', bgLight:'#E0F2FE', pages:[5,6],
+    hook:'A refrigerator keeps food cold because of CFCs — tiny molecules whose unique C–X bond properties made them ideal refrigerants, but also ozone destroyers.',
+    content:'The carbon-halogen bond is a <strong>polar covalent bond</strong>. Halogens are more electronegative than carbon, so the bond is polarised: δ+ on C and δ– on X. This makes the carbon <strong>electrophilic</strong> — the target for nucleophilic attack. Key data from NCERT Table 6.2: Bond length: C–F (139 pm) < C–Cl (178 pm) < C–Br (193 pm) < C–I (214 pm) — increases down the group. Bond enthalpy: C–F (452 kJ/mol) > C–Cl (351) > C–Br (293) > C–I (234 kJ/mol) — decreases down the group. Bond length and bond strength trend in <strong>opposite directions</strong>: C–F is the shortest AND the strongest. Dipole moment: C–Cl has highest dipole (1.86 D) because C–F has smaller bond length (shorter distance) and C–Br/C–I have lower electronegativity difference.',
+    points:['Bond length: C–F < C–Cl < C–Br < C–I (increases down the group as halogen gets bigger)','Bond strength (enthalpy): C–F > C–Cl > C–Br > C–I (opposite of length — shorter = stronger)','C is δ+ (electrophilic) — this drives ALL nucleophilic substitution reactions in this chapter'],
+    mistakes:['Thinking longer bond = stronger bond — the OPPOSITE is true: C–F is shortest yet strongest','Mixing up C–F being both shortest and strongest — students often say C–I is strongest because it\'s the heaviest'] },
+
+  { id:'s641', label:'§6.4.1', title:'Preparation from Alcohols',
+    color:'#059669', bgLight:'#ECFDF5', pages:[6,7],
+    hook:'Surgeons once used chloroform as anaesthesia — made simply by reacting methane with chlorine in sunlight. But making alkyl halides from alcohols is even cleaner.',
+    content:'The –OH group of an alcohol is replaced by halogen using: <strong>(1) Halogen acids (HX)</strong>: Reactivity order HI > HBr > HCl. For primary/secondary alcohols + HCl, ZnCl₂ catalyst required. Tertiary alcohols react with HCl at room temperature without catalyst. <strong>(2) Thionyl chloride (SOCl₂)</strong>: ROH + SOCl₂ → RCl + SO₂↑ + HCl↑. Preferred because byproducts SO₂ and HCl are gases and escape, leaving pure alkyl chloride. <strong>(3) Phosphorus halides</strong>: PCl₅ or PCl₃ for chlorides; PBr₃ (generated in situ from red P + Br₂) for bromides. Reactivity of alcohols: 3° > 2° > 1° with HX.',
+    points:['SOCl₂ is preferred: both byproducts (SO₂ + HCl) are gaseous → pure alkyl chloride without workup','Reactivity of HX with alcohols: HI > HBr > HCl (HI is most reactive)','Reactivity of alcohol toward HX: 3° > 2° > 1° — tertiary needs no catalyst; primary needs ZnCl₂'],
+    mistakes:['Reversing HX reactivity: students write HCl > HBr > HI, but the correct order is HI > HBr > HCl','Thinking PCl₃ makes CCl₄ — PCl₃ reacts with alcohols to give alkyl chlorides (RCl), not polyhalides'] },
+
+  { id:'s642', label:'§6.4.2', title:'Preparation from Hydrocarbons',
+    color:'#059669', bgLight:'#ECFDF5', pages:[7,8],
+    hook:'The same reaction that makes smog-forming chloromethane — sunlight + methane + chlorine — also gives us a controlled route to alkyl halides from alkenes.',
+    content:'<strong>(I) From alkanes — free radical halogenation</strong>: Cl₂ or Br₂ with UV light or heat. Gives complex mixture of isomeric mono- and polyhaloalkanes. Bromine is highly selective (preferring 3° > 2° > 1° hydrogens) while chlorine is less selective. F₂ too reactive (explosive); I₂ too slow (reaction is reversible). <strong>(II) From alkenes</strong>: (a) Addition of HX — follows <strong>Markovnikov\'s rule</strong> (H adds to C with more H atoms, X adds to C with fewer H atoms). Anti-Markovnikov addition occurs with HBr only in the presence of peroxides (free radical mechanism — peroxide effect applies ONLY to HBr, not HCl or HI). (b) Addition of X₂ (Cl₂ or Br₂ in CCl₄) — gives vic-dihalide. Bromine decolourisation test used to detect C=C.',
+    points:['Markovnikov: H adds to C with more H atoms (more substituted carbocation intermediate)','Anti-Markovnikov with HBr + peroxides only — free radical mechanism; does NOT work for HCl or HI','Br₂/CCl₄ addition to alkene → vic-dibromide (reddish-brown Br₂ decolourised — used as alkene test)'],
+    mistakes:['Applying anti-Markovnikov to HCl or HI with peroxides — peroxide effect ONLY applies to HBr','Saying "bromine water" tests for alkene — technically Br₂ in CCl₄ tests for C=C; bromine water also reacts with other groups'] },
+
+  { id:'s643', label:'§6.4.3', title:'Halogen Exchange + Metal Reactions',
+    color:'#059669', bgLight:'#ECFDF5', pages:[8],
+    hook:'When you need an iodide and you only have a chloride — there\'s a simple ion exchange trick that drives itself to completion by precipitation.',
+    content:'<strong>Finkelstein reaction</strong>: RCl or RBr + NaI in dry acetone → RI + NaCl↓ or NaBr↓. NaCl and NaBr are insoluble in acetone and precipitate, driving equilibrium forward (Le Chatelier). Used to make alkyl iodides. <strong>Swarts reaction</strong>: RCl + metallic fluoride (AgF, Hg₂F₂, CoF₂ or SbF₃) → RF. Used to make alkyl fluorides. <strong>Grignard reagent</strong>: RX + Mg in dry ether → RMgX. The C–Mg bond is covalent but polar (C δ–, Mg δ+); Mg–X bond is ionic. Highly reactive — reacts with any proton source. Must be made in anhydrous conditions (even water destroys it). <strong>Wurtz reaction</strong>: 2 RX + 2 Na in dry ether → R–R + 2 NaX. Doubles carbon chain.',
+    points:['Finkelstein: RX + NaI/dry acetone → RI; NaCl/NaBr precipitate drives equilibrium forward','Grignard (RMgX): prepared in dry ether; C is δ– (nucleophilic); destroyed by any proton source including water','Wurtz: 2RX + 2Na → R–R (doubles carbons); limitation: can\'t make unsymmetrical products cleanly'],
+    mistakes:['Forgetting Grignard needs anhydrous conditions — even traces of moisture destroy RMgX → RH','Using Wurtz to make unsymmetrical alkanes (e.g. ethyl + methyl) — gives a mixture, not a pure product'] },
+
+  { id:'s65', label:'§6.5', title:'Preparation of Haloarenes',
+    color:'#EA580C', bgLight:'#FFF7ED', pages:[8,9,10],
+    hook:'Chlorobenzene was used to make DDT which saved millions from malaria — yet benzene\'s aromatic ring strongly resists addition, requiring a clever Lewis acid trick.',
+    content:'<strong>(i) Electrophilic Aromatic Substitution (EAS)</strong>: ArH + Cl₂ + FeCl₃ → ArCl + HCl; ArH + Br₂ + FeBr₃ → ArBr + HBr. Lewis acid (FeCl₃, FeBr₃, AlCl₃) activates the halogen as electrophile. Direct iodination reversible — oxidising agent (HNO₃, HIO₄) needed to oxidise HI formed. Fluorination too vigorous to control directly. <strong>(ii) Sandmeyer\'s reaction</strong>: ArNH₂ → (NaNO₂/HCl, 0–5°C) → ArN₂⁺Cl⁻ → (CuCl/HCl) → ArCl; with CuBr/HBr → ArBr. <strong>For iodobenzene</strong>: diazonium + KI (no Cu needed — direct). <strong>Balz-Schiemann</strong>: diazonium tetrafluoroborate → heat → ArF + N₂ + BF₃.',
+    points:['EAS: Lewis acid (FeCl₃/FeBr₃) activates X₂ as electrophile; ring undergoes substitution (not addition)','Sandmeyer\'s: CuCl gives ArCl; CuBr gives ArBr; but iodide needs only KI (no Cu catalyst)','Balz-Schiemann: only route to aryl fluorides; diazonium tetrafluoroborate decomposes on heating → ArF'],
+    mistakes:['Using Sandmeyer\'s for ArI — iodobenzene needs diazonium + KI only, no copper salt required','Forgetting that direct fluorination of benzene is not feasible — must use Balz-Schiemann or other indirect route'] },
+
+  { id:'s66', label:'§6.6', title:'Physical Properties',
+    color:'#0284C7', bgLight:'#E0F2FE', pages:[11,12],
+    hook:'Why do haloalkanes feel heavier than they should — and why don\'t they dissolve in water? The C–X dipole explains both.',
+    content:'<strong>Boiling points</strong>: Higher than parent alkanes due to stronger dipole-dipole + van der Waals forces. For same alkyl group: RI > RBr > RCl > RF (increasing with molecular mass / van der Waals forces). Branching decreases BP. <strong>Density</strong>: Bromo, iodo, and polychloro compounds are denser than water (density > 1 g/mL). Lower chlorides and fluorides may be lighter. <strong>Solubility</strong>: Very slightly soluble in water — energy to break water\'s H-bonds > energy released by new haloalkane–water interactions. Freely soluble in organic solvents. <strong>para-Dihalobenzenes</strong> have higher melting points than ortho/meta isomers because the symmetric para shape packs more efficiently into crystals.',
+    points:['BP order for same R: RI > RBr > RCl > RF — van der Waals forces increase with molecular mass/size','Bromo, iodo, polychloro compounds denser than water (density > 1); lower fluorides/chlorides may float','Para-isomers of dihalobenzenes have higher MPs than ortho/meta — better crystal lattice packing'],
+    mistakes:['Confusing BP and MP trends for halobenzenes: BP order ≈ same (mass), but MP para > ortho > meta (crystal packing)'] },
+
+  { id:'s671a', label:'§6.7.1(a)', title:'SN2 Mechanism',
+    color:'#7C3AED', bgLight:'#F5F3FF', pages:[13,14,15],
+    hook:'Think of SN2 like a perfect dance move — new partner grabs your hand exactly as you let go of the old one, all in one smooth simultaneous motion with a complete spin.',
+    content:'<strong>SN2 (Substitution Nucleophilic Bimolecular)</strong> — a single-step concerted mechanism. The nucleophile attacks the carbon bearing the leaving group from the <strong>back side</strong> (180° to the leaving group) simultaneously as the C–X bond breaks. A <strong>pentacoordinate transition state</strong> forms — carbon bonded to 5 atoms briefly. Rate law: <strong>Rate = k[RX][Nu⁻]</strong> (second order kinetics). Reactivity: <strong>1° > 2° >> 3°</strong> (tertiary virtually unreactive — steric hindrance blocks nucleophile). Stereochemistry: <strong>Walden inversion</strong> — configuration at chiral centre completely inverted (like umbrella flipping inside out). Polar aprotic solvents (DMSO, acetone, DMF) favour SN2 by not solvating the nucleophile.',
+    points:['One-step concerted; pentacoordinate transition state; no intermediate formed','Rate = k[RX][Nu⁻]; second order; 1° > 2° >> 3° reactivity (steric control)','Walden inversion: complete stereochemical inversion at chiral centre — (R)→(S) or (S)→(R)'],
+    mistakes:['Saying SN2 gives racemisation — it gives complete INVERSION, not a mixture','Neopentyl bromide [(CH₃)₃CCH₂Br] is primary but extremely slow in SN2 — the adjacent bulky tert-butyl group causes steric hindrance even though C bearing X is 1°'] },
+
+  { id:'s671b', label:'§6.7.1(b)', title:'SN1 Mechanism',
+    color:'#D97706', bgLight:'#FEF3C7', pages:[16,17],
+    hook:'Like a waiter who clears the old dish before bringing the new — the leaving group departs first creating a carbocation, THEN the nucleophile arrives.',
+    content:'<strong>SN1 (Substitution Nucleophilic Unimolecular)</strong> — a two-step mechanism. <strong>Step 1 (slow, RDS)</strong>: C–X bond breaks heterolytically; carbocation intermediate forms + halide ion. <strong>Step 2 (fast)</strong>: Nucleophile attacks the carbocation. Rate law: <strong>Rate = k[RX]</strong> (first order — only substrate concentration matters). Carbocation stability determines rate: <strong>3° > 2° > 1°</strong>. Also, allylic and benzylic halides readily undergo SN1 — their carbocations stabilised by resonance. Polar protic solvents (water, ethanol, acetic acid) stabilise both the carbocation and the halide ion via solvation. Stereochemistry: <strong>racemisation</strong> — carbocation is planar sp², nucleophile attacks from both faces equally → 50:50 mixture of enantiomers.',
+    points:['Two steps: ionisation (slow RDS) → carbocation → Nu attack (fast); Rate = k[RX]','Favoured by 3° > 2° AND allylic/benzylic halides (resonance-stabilised carbocations)','Gives racemisation — sp² carbocation is planar; Nu attacks both faces equally'],
+    mistakes:['Confusing racemisation (SN1) with inversion (SN2) — these are the hallmark stereochemical results','Saying primary alkyl halides NEVER undergo SN1 — allylic and benzylic PRIMARY halides DO undergo SN1 readily via resonance-stabilised carbocations'] },
+
+  { id:'s671c', label:'§6.7.1(c)', title:'Stereochemistry — Optical Activity & Chirality',
+    color:'#D97706', bgLight:'#FEF3C7', pages:[18,19,20,21],
+    hook:'Your left and right hands look identical but can\'t be superimposed — this same "handedness" property in molecules determines whether SN1 or SN2 products rotate light clockwise or anticlockwise.',
+    content:'<strong>Optical activity</strong>: compounds that rotate plane-polarised light. Dextrorotatory (+) rotates right; laevorotatory (–) rotates left. <strong>Chirality</strong>: a molecule is chiral if it is non-superimposable on its mirror image. An asymmetric (chiral) carbon has 4 different groups. <strong>Enantiomers</strong>: mirror-image pairs — identical in all physical properties except direction of optical rotation. <strong>Racemic mixture</strong> (dl or ±): equal amounts of both enantiomers → zero optical rotation (rotations cancel). <strong>Inversion of configuration</strong> (SN2): the nucleophile attacks opposite to leaving group → configuration flips. <strong>Racemisation</strong> (SN1): planar carbocation attacked equally from both sides → 50:50 mixture. <strong>Retention</strong>: configuration preserved (occurs when no bond to the stereocentre is broken).',
+    points:['Chiral centre = carbon with 4 different substituents — gives optical activity','Enantiomers = non-superimposable mirror images; equal and opposite rotation of polarised light','SN2 → inversion; SN1 → racemisation; no bond broken at stereocentre → retention'],
+    mistakes:['Confusing sign of rotation (+/–) with absolute configuration (R/S) — they are independent; R can be + or –','A racemic mixture is NOT optically inactive because one enantiomer "wins" — both enantiomers are present in equal amounts and cancel exactly'] },
+
+  { id:'s6712', label:'§6.7.1(2)', title:'Elimination Reactions — E1 and E2',
+    color:'#7C3AED', bgLight:'#F5F3FF', pages:[21,22],
+    hook:'When traffic gets too congested, some cars take an exit ramp instead — when a carbon gets too crowded, molecules eliminate atoms and escape via a new double bond.',
+    content:'Elimination competes with substitution. A β-hydrogen (on C adjacent to C–X) and the halogen (on α-carbon) are removed to form an alkene. <strong>E1 (Unimolecular)</strong>: 2-step — carbocation forms (same as SN1 Step 1), then base removes β-H → alkene. Rate = k[RX]. Favoured by 3° halides, weak bases, polar protic solvents, high temperature. <strong>E2 (Bimolecular)</strong>: concerted single step — strong base removes β-H simultaneously as X⁻ leaves. Requires <strong>anti-periplanar geometry</strong> (β-H and X must be 180° apart). Rate = k[RX][Base]. Favoured by strong bulky bases (KOH/alc, KO-t-Bu), high temperature. <strong>Saytzeff\'s rule</strong>: the more substituted alkene is the major product (more alkyl groups on double bond C atoms = more stable = preferred). Key distinction: <strong>alcoholic KOH → elimination; aqueous KOH → substitution</strong>.',
+    points:['Saytzeff\'s rule: more substituted alkene = major product of elimination (more stable)','E2: anti-periplanar requirement — β-H and leaving group must be 180° apart (trans diaxial in cyclohexane)','Alcoholic KOH = elimination (E1/E2); aqueous KOH = substitution (SN1/SN2) — key NEET distinction'],
+    mistakes:['Choosing the less substituted alkene as Saytzeff major product — more substituted is always major in E1/E2','Applying Saytzeff\'s rule to E2 without checking anti-periplanar geometry in cyclic systems'] },
+
+  { id:'s6721', label:'§6.7.2(1)', title:'Nucleophilic Substitution of Haloarenes',
+    color:'#0284C7', bgLight:'#E0F2FE', pages:[23,24,25],
+    hook:'Benzene is the VIP lounge — nucleophiles are turned away at the door unless the right conditions and guest list (–NO₂ groups) are in place.',
+    content:'Haloarenes are extremely resistant to nucleophilic substitution due to four reasons: (1) <strong>Resonance</strong>: electron pairs on halogen are in conjugation with π-system → C–X has partial double bond character → harder to break. (2) <strong>sp² carbon</strong>: more electronegative than sp³, holds C–X bond electron pair more tightly (C–Cl in haloarene = 169 pm vs 177 pm in haloalkane). (3) <strong>No SN1</strong>: phenyl cation (aryl carbocation) is very unstable — not stabilised by resonance. (4) <strong>Repulsion</strong>: electron-rich nucleophile approaching electron-rich aromatic ring is disfavoured. Substitution CAN happen under forcing conditions: chlorobenzene + NaOH at 623K/300 atm → phenol. Greatly facilitated by <strong>–NO₂ groups at ortho/para positions</strong> — they withdraw electron density and stabilise the Meisenheimer complex intermediate (addition-elimination mechanism). Meta –NO₂ has no effect.',
+    points:['Haloarenes resist NAS: C–X partial double bond (resonance), sp² C holds electrons tighter, no stable aryl cation','–NO₂ at ortho/para activates NAS by withdrawing electrons and stabilising negative charge in Meisenheimer complex','NAS mechanism = addition-elimination (not SN1/SN2): nucleophile adds first → carbanion intermediate → X leaves'],
+    mistakes:['Saying haloarenes cannot undergo nucleophilic substitution at all — they can, under forcing conditions or with ortho/para –NO₂ groups','Thinking meta –NO₂ also activates NAS — only ortho/para –NO₂ can stabilise the intermediate carbanion'] },
+
+  { id:'s6722', label:'§6.7.2(2)', title:'Electrophilic Substitution of Haloarenes',
+    color:'#0284C7', bgLight:'#E0F2FE', pages:[25,26,27],
+    hook:'Halogens in haloarenes are the reluctant gatekeepers of EAS — they slow everyone down at the door (deactivating) but only let ortho and para guests through.',
+    content:'Haloarenes readily undergo the usual <strong>Electrophilic Aromatic Substitution (EAS)</strong>: halogenation, nitration, sulphonation, Friedel-Crafts (alkylation/acylation). Halogens are: (1) <strong>ortho/para directors</strong> — via resonance (+M effect), halogen donates electrons to ortho/para positions; (2) <strong>ring deactivators</strong> — the –I (inductive withdrawal) effect is stronger than +M, making the ring less reactive than benzene overall. So EAS occurs, but slower than with benzene, giving o + p products. <strong>Wurtz-Fittig reaction</strong>: ArX + RX + 2Na in dry ether → Ar–R (arylalkane). <strong>Fittig reaction</strong>: 2 ArX + 2 Na in dry ether → Ar–Ar (biaryl). Both use Na metal in dry ether.',
+    points:['Halogens: o/p directors (resonance donation) but ring deactivators (inductive withdrawal stronger)','EAS gives ortho + para products, but slower than benzene — more drastic conditions needed','Wurtz-Fittig: ArX + RX + 2Na → Ar–R; Fittig: 2ArX + 2Na → Ar–Ar — both in dry ether'],
+    mistakes:['Confusing directing effect with activation: o/p directors do NOT always activate the ring — halogens are o/p directing AND deactivating','Confusing Wurtz-Fittig (mixed, ArX+RX) with Fittig (aryl only, 2ArX) — different products'] },
+
+  { id:'s68', label:'§6.8', title:'Polyhalogen Compounds ⚠ Not yet covered',
+    color:'#DC2626', bgLight:'#FEF2F2', pages:[29,30,31,32,33,34],
+    hook:'Some of the most important industrial chemicals — from dry-cleaning solvents to pesticides — are polyhalogen compounds. NCERT covers 6 of them.',
+    content:'<strong>⚠ This section is not yet covered in our learning atoms.</strong> NCERT covers: <strong>§6.8.1 CH₂Cl₂</strong> (methylene chloride) — solvent, paint remover. <strong>§6.8.2 CHCl₃</strong> (chloroform) — once anaesthetic; stored in dark bottles completely filled (oxidises to poisonous phosgene COCl₂ in light + air); solvent for fats/alkaloids. <strong>§6.8.3 CHI₃</strong> (iodoform) — antiseptic properties due to free iodine released; objectionable smell. <strong>§6.8.4 CCl₄</strong> (carbon tetrachloride) — solvent, fire extinguisher; causes liver damage + ozone layer depletion. <strong>§6.8.5 Freons</strong> (CFCs, e.g. CCl₂F₂ = Freon 12) — stable refrigerants; made by Swarts reaction; deplete ozone layer via radical chain reactions. <strong>§6.8.6 DDT</strong> — insecticide; Paul Muller Nobel Prize 1948; banned in USA 1973 due to bioaccumulation in fat and environmental persistence.',
+    points:['CHCl₃ stored in dark, filled bottles — oxidises in light+air to phosgene (COCl₂), a poisonous gas','Freons (CCl₂F₂ etc.): stable, non-toxic, but reach stratosphere and catalyse ozone depletion by radical mechanism','DDT: Nobel Prize 1948; accumulates in fat tissue; banned 1973 USA due to toxicity to fish and persistence'],
+    mistakes:['CHCl₃ oxidation product is phosgene (COCl₂) — NOT HCl; phosgene is a war gas','Freons are not just refrigerants — they are also aerosol propellants; Freon 12 = CCl₂F₂ (not CCl₄)'] },
+];
+
+// Map each PDF page (1-34) to a section id. Empty string = general/exercises.
+const PAGE_TO_SECTION = {
+  1:'', 2:'s611', 3:'s612', 4:'s62', 5:'s62',
+  6:'s641', 7:'s642', 8:'s643', 9:'s65', 10:'s65',
+  11:'s66', 12:'s66', 13:'s671a', 14:'s671a', 15:'s671a',
+  16:'s671b', 17:'s671b', 18:'s671c', 19:'s671c', 20:'s671c',
+  21:'s6712', 22:'s6712', 23:'s6721', 24:'s6721', 25:'s6721',
+  26:'s6722', 27:'s6722', 28:'s6722',
+  29:'s68', 30:'s68', 31:'s68', 32:'s68', 33:'s68', 34:'s68'
+};
+
 const ATOM_DATA = [
   { num:1, title:'Classification & Nomenclature', color:'#5B3CF5', bg:'#EDE9FE',
     sections:['§6.1','§6.1.1','§6.1.2','§6.1.3','§6.2'],
@@ -1659,6 +1794,8 @@ const NCERT_CHECKLIST = [
 let readerScrollObserver = null;
 let readerActiveAtom = 0;
 
+let readerActiveSection = '';
+
 function openReader() {
   const overlay = document.getElementById('reader-overlay');
   overlay.style.display = 'flex';
@@ -1669,7 +1806,7 @@ function openReader() {
     left.innerHTML = buildReaderLeft();
     right.innerHTML = buildReaderRight();
   }
-  initReaderObserver();
+  setTimeout(initReaderObserver, 100);
 }
 
 function closeReader() {
@@ -1679,87 +1816,73 @@ function closeReader() {
 }
 
 function buildReaderLeft() {
-  const covered = NCERT_CHECKLIST.filter(c => c.covered).length;
-  const total = NCERT_CHECKLIST.length;
-  let html = `<div style="padding:20px 0 0">`;
-
-  ATOM_DATA.forEach((a, i) => {
-    const sectionBadges = a.sections.map(s =>
-      `<span style="font-size:10px;font-weight:600;padding:2px 7px;border-radius:5px;background:#F0FDF4;color:#059669;border:1px solid #86EFAC;font-family:monospace;white-space:nowrap">${s}</span>`
-    ).join('');
+  let html = '<div style="padding:8px 0 40px">';
+  SECTION_DATA.forEach(sec => {
+    const isGap = sec.id === 's68';
     html += `
-    <div class="reader-atom" id="ratom-${a.num}" data-atom="${a.num}"
-         style="margin:0 16px 8px;border-radius:12px;border:2px solid transparent;overflow:hidden;transition:all .25s;cursor:pointer"
-         onclick="readerScrollToPage(${a.num})">
-      <div style="padding:14px 16px;display:flex;align-items:flex-start;gap:12px;background:white">
-        <div style="width:32px;height:32px;border-radius:8px;background:${a.bg};color:${a.color};font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">${a.num}</div>
-        <div style="flex:1;min-width:0">
-          <div style="font-size:13px;font-weight:600;margin-bottom:6px">${a.title}</div>
-          <div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:10px">${sectionBadges}</div>
-          <div class="reader-points" style="display:none">
-            ${a.points.map(p => `<div style="font-size:12px;color:#374151;line-height:1.6;padding:4px 0;padding-left:12px;border-left:2px solid ${a.color};margin-bottom:6px">${p}</div>`).join('')}
-          </div>
+    <div class="rsec" id="rsec-${sec.id}" data-sid="${sec.id}"
+         style="margin:0 0 2px;border-left:3px solid transparent;transition:all .2s">
+      <div class="rsec-head" onclick="rsecClick('${sec.id}')"
+           style="display:flex;align-items:center;gap:10px;padding:11px 16px;cursor:pointer;background:white;border-bottom:1px solid #F3F4F6">
+        <span style="font-size:11px;font-weight:700;padding:3px 8px;border-radius:5px;background:${sec.bgLight};color:${sec.color};font-family:monospace;flex-shrink:0">${sec.label}</span>
+        <span style="font-size:13px;font-weight:500;flex:1;color:${isGap?'#9CA3AF':'#111827'}">${sec.title}</span>
+        <span class="rsec-chev" style="color:#9CA3AF;font-size:16px;flex-shrink:0;transition:transform .2s">›</span>
+      </div>
+      <div class="rsec-body" style="display:none;background:#FAFAFA;border-bottom:1px solid #E5E7EB;padding:0 16px 16px">
+        <div style="padding:12px 0 10px;font-size:12px;font-style:italic;color:#4B5563;line-height:1.6;border-bottom:1px solid #F3F4F6;margin-bottom:12px">${sec.hook}</div>
+        <div style="font-size:13px;color:#111827;line-height:1.75;margin-bottom:14px">${sec.content}</div>
+        <div style="margin-bottom:14px">
+          <div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:${sec.color};margin-bottom:8px">Key points</div>
+          ${sec.points.map(p=>`<div style="display:flex;gap:8px;margin-bottom:7px;font-size:12px;line-height:1.6;color:#374151"><span style="color:${sec.color};font-weight:700;flex-shrink:0;margin-top:1px">▸</span><span>${p}</span></div>`).join('')}
         </div>
-        <div style="font-size:18px;opacity:.3;transform:rotate(0deg);transition:transform .2s;flex-shrink:0" class="reader-chevron">›</div>
+        <div>
+          <div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#DC2626;margin-bottom:8px">Common mistakes</div>
+          ${sec.mistakes.map(m=>`<div style="display:flex;gap:8px;margin-bottom:7px;font-size:12px;line-height:1.6;color:#374151"><span style="color:#DC2626;font-weight:700;flex-shrink:0;margin-top:1px">✕</span><span>${m}</span></div>`).join('')}
+        </div>
       </div>
     </div>`;
   });
 
   // Coverage checklist
+  const covered = NCERT_CHECKLIST.filter(c => c.covered).length;
+  const total = NCERT_CHECKLIST.length;
   const pct = Math.round(covered / total * 100);
   html += `
-  <div style="margin:20px 16px 0;padding:16px;background:white;border-radius:12px;border:1px solid #E5E7EB">
-    <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
-      <div style="font-size:13px;font-weight:700;color:#111827">NCERT Coverage Checklist</div>
-      <div style="margin-left:auto;font-size:12px;font-weight:600;color:#059669">${covered}/${total}</div>
+  <div style="margin:16px 0 0;padding:16px;background:white;border-top:2px solid #E5E7EB">
+    <div style="display:flex;align-items:center;margin-bottom:10px">
+      <span style="font-size:12px;font-weight:700;color:#111827">NCERT Coverage</span>
+      <span style="margin-left:auto;font-size:12px;font-weight:700;color:#059669">${covered}/${total} sections</span>
     </div>
-    <div style="height:6px;background:#E5E7EB;border-radius:99px;margin-bottom:14px;overflow:hidden">
+    <div style="height:5px;background:#E5E7EB;border-radius:99px;margin-bottom:14px;overflow:hidden">
       <div style="height:100%;width:${pct}%;background:#059669;border-radius:99px"></div>
     </div>`;
-
-  let lastAtom = -1;
   NCERT_CHECKLIST.forEach(item => {
-    if (item.atom !== lastAtom) {
-      const label = item.atom === 0 ? 'Not yet covered' : `Atom ${item.atom}`;
-      const labelColor = item.atom === 0 ? '#DC2626' : '#6B7280';
-      html += `<div style="font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:${labelColor};margin:10px 0 6px">${label}</div>`;
-      lastAtom = item.atom;
-    }
-    const icon = item.covered
-      ? `<span style="color:#059669;font-size:14px">✓</span>`
-      : `<span style="color:#DC2626;font-size:14px">○</span>`;
-    html += `<div style="display:flex;align-items:flex-start;gap:8px;padding:5px 0;border-bottom:1px solid #F3F4F6">
-      ${icon}
-      <div style="flex:1">
-        <span style="font-size:11px;font-weight:600;color:#6B7280;font-family:monospace">${item.section}</span>
-        <span style="font-size:12px;color:${item.covered?'#111827':'#6B7280'};margin-left:6px">${item.title}</span>
-      </div>
+    html += `<div style="display:flex;align-items:flex-start;gap:8px;padding:4px 0;border-bottom:1px solid #F9FAFB">
+      <span style="font-size:13px;flex-shrink:0;margin-top:1px">${item.covered?'<span style="color:#059669">✓</span>':'<span style="color:#DC2626">○</span>'}</span>
+      <span style="font-size:11px;font-weight:600;color:#6B7280;font-family:monospace;flex-shrink:0;min-width:72px">${item.section}</span>
+      <span style="font-size:12px;color:${item.covered?'#374151':'#9CA3AF'};line-height:1.5">${item.title}</span>
     </div>`;
   });
-
-  html += `</div><div style="height:40px"></div></div>`;
+  html += `</div></div>`;
   return html;
 }
 
 function buildReaderRight() {
-  let html = `<div style="padding:12px">`;
+  let html = '<div style="padding:8px">';
   for (let p = 1; p <= 34; p++) {
-    const atom = PAGE_TO_ATOM[p] || 0;
+    const sid = PAGE_TO_SECTION[p] || '';
+    const sec = SECTION_DATA.find(s => s.id === sid);
     const ncertPg = 159 + p;
-    const atomColor = atom > 0 ? ATOM_DATA[atom-1].color : '#9CA3AF';
     html += `
-    <div data-page="${p}" class="reader-page" style="margin-bottom:10px;border-radius:10px;overflow:hidden;border:2px solid #E5E7EB;transition:border-color .25s">
-      <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 12px;background:#F9FAFB;border-bottom:1px solid #E5E7EB">
-        <span style="font-size:11px;color:#6B7280;font-weight:500">NCERT pg ${ncertPg}</span>
-        ${atom > 0 ? `<span style="font-size:10px;font-weight:600;padding:2px 8px;border-radius:99px;background:${ATOM_DATA[atom-1].bg};color:${atomColor}">Atom ${atom}</span>` : `<span style="font-size:10px;color:#9CA3AF">—</span>`}
+    <div data-page="${p}" class="reader-page" style="margin-bottom:8px;border-radius:8px;overflow:hidden;border:2px solid #D1D5DB;transition:border-color .25s,box-shadow .25s">
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:5px 10px;background:#F9FAFB;border-bottom:1px solid #E5E7EB">
+        <span style="font-size:11px;color:#6B7280;font-weight:500">pg ${ncertPg}</span>
+        ${sec ? `<span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:99px;background:${sec.bgLight};color:${sec.color};font-family:monospace">${sec.label}</span>` : '<span style="font-size:10px;color:#D1D5DB">exercises</span>'}
       </div>
-      <img src="ncert_pages/page-${String(p).padStart(2,'0')}.png"
-           alt="NCERT pg ${ncertPg}" loading="lazy"
-           style="width:100%;display:block">
+      <img src="ncert_pages/page-${String(p).padStart(2,'0')}.png" alt="NCERT pg ${ncertPg}" loading="lazy" style="width:100%;display:block">
     </div>`;
   }
-  html += `</div>`;
-  return html;
+  return html + '</div>';
 }
 
 function initReaderObserver() {
@@ -1768,80 +1891,87 @@ function initReaderObserver() {
   const pages = rightPanel.querySelectorAll('.reader-page');
 
   readerScrollObserver = new IntersectionObserver((entries) => {
-    let topMost = null, topMostRatio = 0;
+    let best = null, bestY = Infinity;
+    const rootRect = rightPanel.getBoundingClientRect();
     entries.forEach(e => {
-      if (e.isIntersecting && e.intersectionRatio > topMostRatio) {
-        topMost = e.target; topMostRatio = e.intersectionRatio;
+      if (e.isIntersecting) {
+        const rect = e.target.getBoundingClientRect();
+        const dist = Math.abs(rect.top - rootRect.top);
+        if (dist < bestY) { bestY = dist; best = e.target; }
       }
     });
-    if (topMost) {
-      const page = parseInt(topMost.dataset.page);
-      const atom = PAGE_TO_ATOM[page] || 0;
-      if (atom !== readerActiveAtom) activateReaderAtom(atom);
+    if (best) {
+      const sid = PAGE_TO_SECTION[parseInt(best.dataset.page)] || '';
+      if (sid && sid !== readerActiveSection) activateReaderSection(sid);
     }
-  }, { root: rightPanel, threshold: [0.1, 0.3, 0.5] });
+  }, { root: rightPanel, threshold: 0.15 });
 
   pages.forEach(p => readerScrollObserver.observe(p));
 }
 
-function activateReaderAtom(atomNum) {
-  readerActiveAtom = atomNum;
-  document.querySelectorAll('.reader-atom').forEach(el => {
-    const n = parseInt(el.dataset.atom);
-    const isActive = n === atomNum;
-    const data = ATOM_DATA[n-1];
-    el.style.borderColor = isActive && data ? data.color : 'transparent';
-    el.style.boxShadow = isActive ? `0 0 0 3px ${data.color}22` : 'none';
-    const pts = el.querySelector('.reader-points');
-    const chev = el.querySelector('.reader-chevron');
-    if (pts) pts.style.display = isActive ? 'block' : 'none';
+function activateReaderSection(sid) {
+  readerActiveSection = sid;
+  const sec = SECTION_DATA.find(s => s.id === sid);
+  if (!sec) return;
+
+  document.querySelectorAll('.rsec').forEach(el => {
+    const isActive = el.dataset.sid === sid;
+    el.style.borderLeftColor = isActive ? sec.color : 'transparent';
+    el.style.background = isActive ? sec.bgLight + '44' : '';
+    const body = el.querySelector('.rsec-body');
+    const chev = el.querySelector('.rsec-chev');
+    if (body) body.style.display = isActive ? 'block' : 'none';
     if (chev) chev.style.transform = isActive ? 'rotate(90deg)' : 'rotate(0deg)';
   });
 
-  if (atomNum > 0) {
-    const activeEl = document.getElementById(`ratom-${atomNum}`);
-    const leftPanel = document.getElementById('reader-left');
-    if (activeEl && leftPanel) {
-      const elTop = activeEl.offsetTop;
-      const panelH = leftPanel.clientHeight;
-      leftPanel.scrollTo({ top: elTop - panelH / 3, behavior: 'smooth' });
-    }
+  const activeEl = document.getElementById(`rsec-${sid}`);
+  const leftPanel = document.getElementById('reader-left');
+  if (activeEl && leftPanel) {
+    const offset = activeEl.offsetTop - leftPanel.clientHeight * 0.2;
+    leftPanel.scrollTo({ top: offset, behavior: 'smooth' });
   }
+
+  document.querySelectorAll('.reader-page').forEach(pg => {
+    const pgSid = PAGE_TO_SECTION[parseInt(pg.dataset.page)] || '';
+    const match = pgSid === sid;
+    pg.style.borderColor = match ? sec.color : '#D1D5DB';
+    pg.style.boxShadow = match ? `0 0 0 3px ${sec.color}33` : 'none';
+  });
 }
 
-function readerScrollToPage(atomNum) {
+function rsecClick(sid) {
   const rightPanel = document.getElementById('reader-right');
+  const sec = SECTION_DATA.find(s => s.id === sid);
   for (let p = 1; p <= 34; p++) {
-    if (PAGE_TO_ATOM[p] === atomNum) {
-      const pageEl = rightPanel.querySelector(`[data-page="${p}"]`);
-      if (pageEl) { pageEl.scrollIntoView({ behavior: 'smooth', block: 'start' }); break; }
+    if (PAGE_TO_SECTION[p] === sid) {
+      const pgEl = rightPanel.querySelector(`[data-page="${p}"]`);
+      if (pgEl) { pgEl.scrollIntoView({ behavior:'smooth', block:'start' }); break; }
     }
   }
+  if (sid !== readerActiveSection) activateReaderSection(sid);
 }
 </script>
 
 <!-- PARALLEL READER OVERLAY -->
 <div id="reader-overlay" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:500;flex-direction:column;background:#F9FAFB">
   <!-- Header -->
-  <div style="height:52px;background:white;border-bottom:1px solid #E5E7EB;display:flex;align-items:center;padding:0 20px;gap:16px;flex-shrink:0;z-index:10">
-    <button onclick="closeReader()" style="display:flex;align-items:center;gap:6px;padding:7px 14px;border:1px solid #E5E7EB;border-radius:8px;background:white;cursor:pointer;font-size:13px;font-weight:500;color:#374151">← Back</button>
-    <div style="font-size:14px;font-weight:600;color:#111827">Ch 10: Haloalkanes — NCERT Parallel Reader</div>
-    <div style="margin-left:auto;display:flex;align-items:center;gap:8px">
-      <div style="width:8px;height:8px;border-radius:50%;background:#059669"></div>
-      <span style="font-size:12px;color:#6B7280">Left highlights as you scroll the textbook</span>
+  <div style="height:48px;background:white;border-bottom:1px solid #E5E7EB;display:flex;align-items:center;padding:0 16px;gap:12px;flex-shrink:0">
+    <button onclick="closeReader()" style="padding:6px 12px;border:1px solid #E5E7EB;border-radius:7px;background:white;cursor:pointer;font-size:13px;font-weight:500;color:#374151;white-space:nowrap">← Back</button>
+    <div style="font-size:13px;font-weight:600;color:#111827">Ch 10: Haloalkanes — NCERT Parallel Reader</div>
+    <div style="margin-left:auto;display:flex;align-items:center;gap:6px;flex-shrink:0">
+      <div style="width:7px;height:7px;border-radius:50%;background:#059669"></div>
+      <span style="font-size:11px;color:#6B7280">Scroll NCERT → left expands automatically</span>
     </div>
   </div>
   <!-- Column headers -->
   <div style="display:flex;background:#F3F4F6;border-bottom:1px solid #E5E7EB;flex-shrink:0">
-    <div style="width:380px;flex-shrink:0;padding:8px 20px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#6B7280;border-right:1px solid #E5E7EB">Your Study Notes</div>
-    <div style="flex:1;padding:8px 20px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#6B7280">NCERT Textbook (Class 12 Chemistry, Ch 10)</div>
+    <div style="width:50%;padding:7px 16px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#6B7280;border-right:1px solid #E5E7EB">Your Study Notes — click any section to jump</div>
+    <div style="width:50%;padding:7px 16px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#6B7280">NCERT Textbook — Class 12 Chemistry Ch 10</div>
   </div>
   <!-- Split pane -->
   <div style="flex:1;display:flex;overflow:hidden">
-    <!-- Left: atom summaries + checklist -->
-    <div id="reader-left" style="width:380px;flex-shrink:0;overflow-y:auto;border-right:1px solid #E5E7EB;background:#F9FAFB"></div>
-    <!-- Right: NCERT pages -->
-    <div id="reader-right" style="flex:1;overflow-y:auto;background:#E5E7EB;padding:0"></div>
+    <div id="reader-left" style="width:50%;overflow-y:auto;border-right:1px solid #D1D5DB;background:#F9FAFB"></div>
+    <div id="reader-right" style="width:50%;overflow-y:auto;background:#E5E7EB"></div>
   </div>
 </div>
 
