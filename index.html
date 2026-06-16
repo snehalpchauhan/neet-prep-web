@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEET Prep · Ch 10 Haloalkanes & Haloarenes</title>
+<style>
+  :root {
+    --purple: #5B3CF5;
+    --purple-light: #EDE9FE;
+    --purple-dark: #3C2899;
+    --green: #059669;
+    --green-light: #ECFDF5;
+    --green-dark: #064E3B;
+    --amber: #D97706;
+    --amber-light: #FEF3C7;
+    --amber-dark: #78350F;
+    --blue: #0284C7;
+    --blue-light: #E0F2FE;
+    --blue-dark: #0C4A6E;
+    --red: #DC2626;
+    --red-light: #FEF2F2;
+    --orange: #EA580C;
+    --bg: #F9FAFB;
+    --surface: #FFFFFF;
+    --border: #E5E7EB;
+    --text: #111827;
+    --text-muted: #6B7280;
+    --radius: 12px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+  /* SIDEBAR */
+  .sidebar { position: fixed; left: 0; top: 0; bottom: 0; width: 240px; background: var(--surface); border-right: 1px solid var(--border); display: flex; flex-direction: column; z-index: 100; }
+  .logo { padding: 20px 20px 16px; border-bottom: 1px solid var(--border); }
+  .logo-tag { font-size: 10px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px; }
+  .logo-title { font-size: 15px; font-weight: 600; color: var(--text); }
+  .logo-sub { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+  .nav { flex: 1; overflow-y: auto; padding: 12px 0; }
+  .nav-section { font-size: 10px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--text-muted); padding: 8px 20px 4px; }
+  .nav-item { display: flex; align-items: center; gap: 10px; padding: 9px 20px; cursor: pointer; border-left: 3px solid transparent; transition: all .15s; font-size: 13px; color: var(--text-muted); }
+  .nav-item:hover { background: var(--bg); color: var(--text); }
+  .nav-item.active { background: var(--purple-light); color: var(--purple); border-left-color: var(--purple); font-weight: 500; }
+  .nav-dot { width: 22px; height: 22px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; flex-shrink: 0; }
+  .sidebar-footer { padding: 16px 20px; border-top: 1px solid var(--border); }
+  .progress-label { font-size: 11px; color: var(--text-muted); margin-bottom: 6px; display: flex; justify-content: space-between; }
+  .progress-track { height: 4px; background: var(--border); border-radius: 99px; }
+  .progress-fill { height: 100%; background: var(--purple); border-radius: 99px; transition: width .4s; }
+
+  /* MAIN */
+  .main { margin-left: 240px; min-height: 100vh; }
+  .topbar { position: sticky; top: 0; background: rgba(249,250,251,.9); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); padding: 12px 32px; display: flex; align-items: center; justify-content: space-between; z-index: 50; }
+  .topbar-left { display: flex; align-items: center; gap: 12px; }
+  .mode-tabs { display: flex; background: var(--border); border-radius: 8px; padding: 2px; gap: 2px; }
+  .mode-tab { padding: 5px 14px; border-radius: 6px; font-size: 12px; font-weight: 500; cursor: pointer; border: none; background: none; color: var(--text-muted); transition: all .15s; }
+  .mode-tab.active { background: var(--surface); color: var(--text); box-shadow: 0 1px 3px rgba(0,0,0,.1); }
+  .btn { padding: 7px 16px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer; border: 1px solid var(--border); background: var(--surface); color: var(--text); transition: all .15s; }
+  .btn:hover { background: var(--bg); }
+  .btn-primary { background: var(--purple); color: #fff; border-color: var(--purple); }
+  .btn-primary:hover { background: var(--purple-dark); }
+
+  /* CONTENT AREA */
+  .content { padding: 32px; max-width: 860px; }
+
+  /* ATOM INFOGRAPHIC */
+  .atom-header { margin-bottom: 24px; }
+  .breadcrumb { font-size: 12px; color: var(--text-muted); margin-bottom: 6px; }
+  .atom-title-row { display: flex; align-items: center; justify-content: space-between; }
+  .atom-title { font-size: 24px; font-weight: 600; }
+  .atom-meta { display: flex; gap: 8px; align-items: center; margin-top: 8px; }
+  .chip { font-size: 11px; padding: 3px 10px; border-radius: 99px; font-weight: 500; }
+
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 16px; overflow: hidden; }
+  .hook { display: flex; gap: 14px; align-items: flex-start; padding: 16px 20px; }
+  .hook-icon { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
+  .hook-text { font-size: 14px; line-height: 1.6; font-style: italic; color: var(--text); padding-top: 2px; }
+
+  .section { padding: 20px; border-top: 1px solid var(--border); }
+  .section-title { font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 14px; }
+
+  /* Classification cards */
+  .tier-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-bottom: 16px; }
+  .tier-card { border-radius: 10px; padding: 14px; text-align: center; border: 1px solid; }
+  .tier-num { font-size: 28px; font-weight: 700; margin-bottom: 4px; }
+  .tier-name { font-size: 12px; font-weight: 600; margin-bottom: 8px; }
+  .tier-example { font-size: 12px; font-family: 'Courier New', monospace; background: white; border-radius: 6px; padding: 4px 8px; display: inline-block; margin-bottom: 6px; }
+  .tier-desc { font-size: 11px; line-height: 1.5; }
+
+  /* Mechanism flow */
+  .flow { display: flex; align-items: center; gap: 0; padding: 16px 0; overflow-x: auto; }
+  .flow-box { text-align: center; min-width: 90px; flex-shrink: 0; }
+  .flow-molecule { border-radius: 10px; padding: 10px 12px; font-size: 13px; font-weight: 600; font-family: 'Courier New', monospace; margin-bottom: 5px; border: 2px solid; }
+  .flow-label { font-size: 10px; color: var(--text-muted); }
+  .flow-arrow { flex: 1; min-width: 60px; padding: 0 4px; text-align: center; }
+  .flow-arrow-line { position: relative; height: 2px; background: var(--border); margin: 0 4px 4px; }
+  .flow-arrow-line::after { content: '▶'; position: absolute; right: -8px; top: -8px; font-size: 14px; color: var(--text-muted); }
+  .flow-speed { font-size: 10px; font-weight: 600; margin-bottom: 2px; }
+  .flow-note { font-size: 10px; color: var(--text-muted); }
+
+  /* Comparison table */
+  .compare-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .compare-table th { padding: 10px 14px; text-align: center; font-weight: 600; font-size: 13px; background: var(--bg); }
+  .compare-table th:first-child { text-align: left; }
+  .compare-table td { padding: 9px 14px; border-top: 1px solid var(--border); }
+  .compare-table td:first-child { color: var(--text-muted); font-size: 12px; }
+  .compare-table td:not(:first-child) { text-align: center; font-weight: 500; }
+
+  /* Key points */
+  .kp-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; }
+  .kp { border-radius: 10px; padding: 14px; border: 1px solid var(--border); }
+  .kp-icon { font-size: 24px; margin-bottom: 8px; }
+  .kp-title { font-size: 12px; font-weight: 600; margin-bottom: 4px; }
+  .kp-desc { font-size: 11px; color: var(--text-muted); line-height: 1.5; }
+
+  /* NEET tip */
+  .neet-tip { border-radius: 10px; padding: 12px 16px; display: flex; gap: 10px; align-items: flex-start; margin-top: 16px; }
+  .neet-badge { font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 99px; white-space: nowrap; }
+  .neet-text { font-size: 13px; line-height: 1.6; }
+
+  /* Mistakes */
+  .mistake-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+  .mistake-tag { font-size: 12px; padding: 5px 12px; border-radius: 8px; border: 1px solid #FECACA; background: white; color: var(--red); }
+
+  /* QUIZ MODE */
+  .quiz-header { margin-bottom: 24px; }
+  .quiz-progress { display: flex; gap: 4px; margin-bottom: 20px; }
+  .qp-dot { flex: 1; height: 4px; border-radius: 99px; background: var(--border); transition: background .3s; }
+  .qp-dot.done { background: var(--green); }
+  .qp-dot.active { background: var(--purple); }
+  .qp-dot.wrong { background: var(--red); }
+
+  .q-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+  .q-meta-row { padding: 14px 20px 0; display: flex; gap: 8px; align-items: center; }
+  .q-text { font-size: 16px; font-weight: 500; line-height: 1.6; padding: 12px 20px 16px; }
+  .q-options { padding: 0 20px 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .q-opt { padding: 12px 16px; border-radius: 10px; border: 1.5px solid var(--border); font-size: 14px; cursor: pointer; transition: all .2s; display: flex; align-items: flex-start; gap: 10px; background: var(--surface); }
+  .q-opt:hover { border-color: var(--purple); background: var(--purple-light); }
+  .q-opt.selected-correct { border-color: var(--green); background: var(--green-light); }
+  .q-opt.selected-wrong { border-color: var(--red); background: var(--red-light); }
+  .q-opt.reveal-correct { border-color: var(--green); background: var(--green-light); }
+  .q-opt-key { width: 24px; height: 24px; border-radius: 6px; background: var(--bg); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; flex-shrink: 0; }
+  .q-opt.selected-correct .q-opt-key { background: var(--green); color: white; border-color: var(--green); }
+  .q-opt.selected-wrong .q-opt-key { background: var(--red); color: white; border-color: var(--red); }
+  .q-opt.reveal-correct .q-opt-key { background: var(--green); color: white; border-color: var(--green); }
+  .q-explanation { margin: 0 20px 20px; padding: 14px; border-radius: 10px; background: var(--bg); border-left: 3px solid var(--green); font-size: 13px; line-height: 1.7; display: none; }
+  .q-explanation.show { display: block; }
+  .q-nav { padding: 16px 20px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+  .q-counter { font-size: 13px; color: var(--text-muted); }
+
+  /* Score card */
+  .score-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px; text-align: center; }
+  .score-num { font-size: 56px; font-weight: 700; }
+  .score-label { font-size: 16px; color: var(--text-muted); margin-top: 4px; }
+  .score-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin: 24px 0; }
+  .score-stat { background: var(--bg); border-radius: 10px; padding: 14px; }
+  .score-stat-num { font-size: 22px; font-weight: 700; }
+  .score-stat-label { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+
+  /* Difficulty badge */
+  .easy { background: #D1FAE5; color: #065F46; }
+  .medium { background: #FEF3C7; color: #78350F; }
+  .hard { background: #FEE2E2; color: #991B1B; }
+
+  .hidden { display: none !important; }
+
+  @media (max-width: 768px) {
+    .sidebar { display: none; }
+    .main { margin-left: 0; }
+    .content { padding: 16px; }
+    .kp-grid { grid-template-columns: 1fr; }
+    .tier-grid { grid-template-columns: 1fr; }
+    .q-options { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<nav class="sidebar">
+  <div class="logo">
+    <div class="logo-tag">Class 12 · Chemistry</div>
+    <div class="logo-title">Haloalkanes &amp; Haloarenes</div>
+    <div class="logo-sub">Chapter 10 · 8 atoms · 20 MCQs</div>
+  </div>
+  <div class="nav">
+    <div class="nav-section">Self-Learn</div>
+    <div class="nav-item active" onclick="showAtom(0,this)" id="nav0">
+      <div class="nav-dot" style="background:#EDE9FE;color:#5B3CF5">1</div> Classification
+    </div>
+    <div class="nav-item" onclick="showAtom(1,this)" id="nav1">
+      <div class="nav-dot" style="background:#E0F2FE;color:#0284C7">2</div> C-X Bond
+    </div>
+    <div class="nav-item" onclick="showAtom(2,this)" id="nav2">
+      <div class="nav-dot" style="background:#ECFDF5;color:#059669">3</div> Preparation
+    </div>
+    <div class="nav-item" onclick="showAtom(3,this)" id="nav3">
+      <div class="nav-dot" style="background:#FFF7ED;color:#EA580C">4</div> Haloarenes Prep
+    </div>
+    <div class="nav-item" onclick="showAtom(4,this)" id="nav4">
+      <div class="nav-dot" style="background:#FEF3C7;color:#D97706">5</div> SN1 Mechanism
+    </div>
+    <div class="nav-item" onclick="showAtom(5,this)" id="nav5">
+      <div class="nav-dot" style="background:#ECFDF5;color:#059669">6</div> SN2 Mechanism
+    </div>
+    <div class="nav-item" onclick="showAtom(6,this)" id="nav6">
+      <div class="nav-dot" style="background:#F5F3FF;color:#7C3AED">7</div> Elimination
+    </div>
+    <div class="nav-item" onclick="showAtom(7,this)" id="nav7">
+      <div class="nav-dot" style="background:#F0F9FF;color:#0284C7">8</div> Haloarene Rxns
+    </div>
+    <div class="nav-section" style="margin-top:8px">Practice</div>
+    <div class="nav-item" onclick="startQuiz()" id="nav-quiz">
+      <div class="nav-dot" style="background:#FEF3C7;color:#D97706">⚡</div> 20 MCQ Quiz
+    </div>
+  </div>
+  <div class="sidebar-footer">
+    <div class="progress-label">
+      <span>Progress</span>
+      <span id="progress-text">0 / 8</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+    </div>
+  </div>
+</nav>
+
+<!-- MAIN -->
+<div class="main">
+  <div class="topbar">
+    <div class="topbar-left">
+      <div class="mode-tabs">
+        <button class="mode-tab active" id="tab-learn" onclick="setMode('learn')">Learn</button>
+        <button class="mode-tab" id="tab-quiz" onclick="setMode('quiz')">Quiz</button>
+      </div>
+    </div>
+    <div style="display:flex;gap:8px">
+      <button class="btn" onclick="prevAtom()">← Prev</button>
+      <button class="btn btn-primary" onclick="nextAtom()">Next →</button>
+    </div>
+  </div>
+
+  <!-- LEARN MODE -->
+  <div class="content" id="learn-mode">
+
+    <!-- ATOM 1 -->
+    <div class="atom-view" id="atom-0">
+      <div class="atom-header">
+        <div class="breadcrumb">Ch 10 · Atom 1 of 8</div>
+        <div class="atom-title">Classification &amp; Nomenclature</div>
+        <div class="atom-meta">
+          <span class="chip" style="background:#EDE9FE;color:#5B3CF5">~7 min</span>
+          <span class="chip" style="background:#D1FAE5;color:#065F46">Foundation</span>
+          <span class="chip" style="background:#FEF3C7;color:#78350F">NEET 1-2 Qs/yr</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="hook" style="background:#EDE9FE">
+          <div class="hook-icon" style="background:#5B3CF5">🏠</div>
+          <div class="hook-text" style="color:#3C2899">Just like postal addresses follow a strict format — get one part wrong and you land at the completely wrong molecule!</div>
+        </div>
+        <div class="section">
+          <div class="section-title">How to classify — by type of carbon, not by number of halogens</div>
+          <div class="tier-grid">
+            <div class="tier-card" style="background:#EDE9FE;border-color:#C4B5FD">
+              <div class="tier-num" style="color:#5B3CF5">1°</div>
+              <div class="tier-name" style="color:#3C2899">Primary</div>
+              <div class="tier-example" style="color:#5B3CF5">CH₃CH₂Cl</div>
+              <div class="tier-desc" style="color:#6D28D9">Halogen on carbon bonded to just 1 other carbon</div>
+            </div>
+            <div class="tier-card" style="background:#FEF3C7;border-color:#FCD34D">
+              <div class="tier-num" style="color:#D97706">2°</div>
+              <div class="tier-name" style="color:#92400E">Secondary</div>
+              <div class="tier-example" style="color:#B45309">(CH₃)₂CHBr</div>
+              <div class="tier-desc" style="color:#92400E">Halogen on carbon bonded to 2 other carbons</div>
+            </div>
+            <div class="tier-card" style="background:#ECFDF5;border-color:#6EE7B7">
+              <div class="tier-num" style="color:#059669">3°</div>
+              <div class="tier-name" style="color:#065F46">Tertiary</div>
+              <div class="tier-example" style="color:#065F46">(CH₃)₃CCl</div>
+              <div class="tier-desc" style="color:#065F46">Halogen on carbon bonded to 3 other carbons</div>
+            </div>
+          </div>
+        </div>
+        <div class="section">
+          <div class="section-title">Haloalkane vs Haloarene — the key difference</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+            <div style="border-radius:10px;padding:14px;background:#F3F4F6;border:1px solid var(--border)">
+              <div style="font-size:13px;font-weight:600;margin-bottom:6px">Haloalkane (R–X)</div>
+              <div style="font-size:20px;font-family:monospace;color:#5B3CF5;margin-bottom:6px">R–X</div>
+              <div style="font-size:12px;color:var(--text-muted);line-height:1.6">Halogen on sp³ carbon<br>Undergoes SN1, SN2, E1, E2</div>
+            </div>
+            <div style="border-radius:10px;padding:14px;background:#FFF7ED;border:1px solid #FED7AA">
+              <div style="font-size:13px;font-weight:600;margin-bottom:6px">Haloarene (Ar–X)</div>
+              <div style="font-size:20px;font-family:monospace;color:#EA580C;margin-bottom:6px">Ar–X</div>
+              <div style="font-size:12px;color:#92400E;line-height:1.6">Halogen on aromatic sp² carbon<br>Resistant to nucleophiles</div>
+            </div>
+          </div>
+        </div>
+        <div class="section">
+          <div class="neet-tip" style="background:#EDE9FE">
+            <span class="neet-badge" style="background:#5B3CF5;color:white">NEET TIP</span>
+            <div class="neet-text" style="color:#3C2899">1–2 questions every year on nomenclature. The most common trick: classifying by the carbon bearing the halogen — NOT by how many halogens are present. (CH₃)₃CCl = tertiary, even though it has just one Cl.</div>
+          </div>
+          <div class="mistake-row">
+            <span class="mistake-tag">✕ Classifying by number of halogens, not by type of carbon</span>
+            <span class="mistake-tag">✕ Using higher locant for halogen instead of lowest locant rule</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ATOM 2 -->
+    <div class="atom-view hidden" id="atom-1">
+      <div class="atom-header">
+        <div class="breadcrumb">Ch 10 · Atom 2 of 8</div>
+        <div class="atom-title">Nature of C-X Bond &amp; Physical Properties</div>
+        <div class="atom-meta">
+          <span class="chip" style="background:#E0F2FE;color:#0284C7">~7 min</span>
+          <span class="chip" style="background:#D1FAE5;color:#065F46">Properties</span>
+          <span class="chip" style="background:#FEF3C7;color:#78350F">Frequently tested</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="hook" style="background:#E0F2FE">
+          <div class="hook-icon" style="background:#0284C7">❄️</div>
+          <div class="hook-text" style="color:#0C4A6E">CFCs kept refrigerators cold — their unique C-X bond properties made them ideal refrigerants, but also ozone destroyers. Understanding C-X explains both!</div>
+        </div>
+        <div class="section">
+          <div class="section-title">Bond length and strength — opposite trends</div>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px">
+            <div style="text-align:center;padding:12px 8px;border-radius:10px;background:#DBEAFE;border:1px solid #93C5FD">
+              <div style="font-size:16px;font-weight:700;color:#1D4ED8;font-family:monospace">C–F</div>
+              <div style="font-size:10px;color:#1E40AF;margin-top:6px;line-height:1.5">Shortest<br><strong>Strongest</strong></div>
+            </div>
+            <div style="text-align:center;padding:12px 8px;border-radius:10px;background:#BAE6FD;border:1px solid #7DD3FC">
+              <div style="font-size:16px;font-weight:700;color:#0369A1;font-family:monospace">C–Cl</div>
+              <div style="font-size:10px;color:#0369A1;margin-top:6px">↓</div>
+            </div>
+            <div style="text-align:center;padding:12px 8px;border-radius:10px;background:#E0F2FE;border:1px solid #BAE6FD">
+              <div style="font-size:16px;font-weight:700;color:#0284C7;font-family:monospace">C–Br</div>
+              <div style="font-size:10px;color:#0284C7;margin-top:6px">↓</div>
+            </div>
+            <div style="text-align:center;padding:12px 8px;border-radius:10px;background:#F1F5F9;border:1px solid #CBD5E1">
+              <div style="font-size:16px;font-weight:700;color:#475569;font-family:monospace">C–I</div>
+              <div style="font-size:10px;color:#475569;margin-top:6px;line-height:1.5">Longest<br><strong>Weakest</strong></div>
+            </div>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-muted)">
+            <span>← Bond length decreases</span><span>Bond length increases →</span>
+          </div>
+        </div>
+        <div class="section">
+          <div class="section-title">Boiling point order — same alkyl group</div>
+          <div style="display:flex;align-items:flex-end;gap:6px;padding:16px;background:#F9FAFB;border-radius:10px;margin-bottom:8px">
+            <div style="flex:1;text-align:center"><div style="background:#DBEAFE;border-radius:6px 6px 0 0;height:40px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:#1D4ED8">R–F</div><div style="font-size:10px;color:var(--text-muted);margin-top:4px">Lowest</div></div>
+            <div style="flex:1;text-align:center"><div style="background:#7DD3FC;border-radius:6px 6px 0 0;height:65px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:#0369A1">R–Cl</div></div>
+            <div style="flex:1;text-align:center"><div style="background:#38BDF8;border-radius:6px 6px 0 0;height:90px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:#0C4A6E">R–Br</div></div>
+            <div style="flex:1;text-align:center"><div style="background:#0284C7;border-radius:6px 6px 0 0;height:115px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:white">R–I</div><div style="font-size:10px;color:var(--text-muted);margin-top:4px">Highest</div></div>
+          </div>
+          <div style="font-size:12px;color:var(--text-muted);text-align:center">Boiling point increases with molecular mass → stronger van der Waals forces</div>
+        </div>
+        <div class="section">
+          <div class="neet-tip" style="background:#E0F2FE">
+            <span class="neet-badge" style="background:#0284C7;color:white">NEET TIP</span>
+            <div class="neet-text" style="color:#0C4A6E">The most common trick question: C-F is the SHORTEST and STRONGEST bond — students confuse shorter with weaker. Remember: C-F is tiny but mighty!</div>
+          </div>
+          <div class="mistake-row">
+            <span class="mistake-tag">✕ Shorter bond = weaker bond (C-F is shortest yet strongest)</span>
+            <span class="mistake-tag">✕ BP order reversed as RF > RCl > RBr > RI</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ATOM 3 -->
+    <div class="atom-view hidden" id="atom-2">
+      <div class="atom-header">
+        <div class="breadcrumb">Ch 10 · Atom 3 of 8</div>
+        <div class="atom-title">Preparation of Haloalkanes</div>
+        <div class="atom-meta">
+          <span class="chip" style="background:#ECFDF5;color:#059669">~8 min</span>
+          <span class="chip" style="background:#D1FAE5;color:#065F46">Reactions</span>
+          <span class="chip" style="background:#FEE2E2;color:#991B1B">High NEET weightage</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="hook" style="background:#ECFDF5">
+          <div class="hook-icon" style="background:#059669">⚗️</div>
+          <div class="hook-text" style="color:#064E3B">Surgeons once used chloroform as anesthesia — made simply by reacting methane with chlorine in sunlight. This free radical reaction is still key in NEET!</div>
+        </div>
+        <div class="section">
+          <div class="section-title">3 routes to make haloalkanes</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:16px">
+            <div style="border-radius:10px;padding:14px;background:#F0FDF4;border:1px solid #86EFAC">
+              <div style="font-size:13px;font-weight:600;color:#065F46;margin-bottom:10px">🍷 From Alcohols</div>
+              <div style="font-size:12px;color:#047857;line-height:1.7;font-family:monospace">ROH + SOCl₂ → RCl<br>ROH + PCl₅ → RCl<br>ROH + HX → RX</div>
+              <div style="margin-top:8px;padding:6px 8px;background:white;border-radius:6px;font-size:11px;color:#065F46">⭐ SOCl₂ = best<br>Byproducts are gases (SO₂ + HCl)</div>
+            </div>
+            <div style="border-radius:10px;padding:14px;background:#FEF3C7;border:1px solid #FCD34D">
+              <div style="font-size:13px;font-weight:600;color:#78350F;margin-bottom:10px">🔗 From Alkenes</div>
+              <div style="font-size:12px;color:#92400E;line-height:1.7">HX adds by<br><strong>Markovnikov's rule</strong><br><br>+ HBr + peroxides →<br><strong>anti-Markovnikov</strong><br>(only HBr!)</div>
+            </div>
+            <div style="border-radius:10px;padding:14px;background:#EDE9FE;border:1px solid #C4B5FD">
+              <div style="font-size:13px;font-weight:600;color:#4C1D95;margin-bottom:10px">☀️ From Alkanes</div>
+              <div style="font-size:12px;color:#5B21B6;line-height:1.7">Free radical halogenation<br>X₂ + UV light<br><br>Selectivity:<br>Br₂ > selective<br>Cl₂ > less selective</div>
+            </div>
+          </div>
+          <div style="background:#FFF7ED;border-radius:10px;padding:12px 16px;border:1px solid #FED7AA">
+            <div style="font-size:12px;font-weight:600;color:#C2410C;margin-bottom:6px">HX reactivity with alcohols</div>
+            <div style="font-size:14px;font-weight:700;color:#78350F;font-family:monospace">HI  >  HBr  >  HCl</div>
+            <div style="font-size:11px;color:#92400E;margin-top:4px">Students often reverse this — HI is most reactive because I⁻ is the best leaving group</div>
+          </div>
+        </div>
+        <div class="section">
+          <div class="neet-tip" style="background:#ECFDF5">
+            <span class="neet-badge" style="background:#059669;color:white">NEET TIP</span>
+            <div class="neet-text" style="color:#064E3B">Peroxide effect (anti-Markovnikov) applies ONLY to HBr — not HCl or HI. This distinction is tested almost every year.</div>
+          </div>
+          <div class="mistake-row">
+            <span class="mistake-tag">✕ Peroxide effect extends to HCl/HI — ONLY HBr</span>
+            <span class="mistake-tag">✕ HX reactivity: HCl > HBr > HI (reversed, correct is HI > HBr > HCl)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ATOM 4 -->
+    <div class="atom-view hidden" id="atom-3">
+      <div class="atom-header">
+        <div class="breadcrumb">Ch 10 · Atom 4 of 8</div>
+        <div class="atom-title">Preparation of Haloarenes</div>
+        <div class="atom-meta">
+          <span class="chip" style="background:#FFF7ED;color:#EA580C">~7 min</span>
+          <span class="chip" style="background:#D1FAE5;color:#065F46">Reactions</span>
+          <span class="chip" style="background:#FEF3C7;color:#78350F">Classic NEET Qs</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="hook" style="background:#FFF7ED">
+          <div class="hook-icon" style="background:#EA580C">🏭</div>
+          <div class="hook-text" style="color:#7C2D12">Chlorobenzene was used to make DDT — but benzene resists halogen addition, so you need a Lewis acid catalyst to force the reaction!</div>
+        </div>
+        <div class="section">
+          <div class="section-title">Method 1 — Direct EAS halogenation</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px">
+            <div style="padding:14px;border-radius:10px;background:#FFF7ED;border:1px solid #FED7AA;font-size:13px;font-family:monospace;color:#C2410C;line-height:1.8">C₆H₆ + Cl₂ <span style="font-family:sans-serif;font-size:11px">→</span> C₆H₅Cl<br><span style="font-family:sans-serif;font-size:11px;color:#78350F">Catalyst: FeCl₃</span><br><br>C₆H₆ + Br₂ <span style="font-family:sans-serif;font-size:11px">→</span> C₆H₅Br<br><span style="font-family:sans-serif;font-size:11px;color:#78350F">Catalyst: FeBr₃</span></div>
+            <div style="padding:14px;border-radius:10px;background:#F9FAFB;border:1px solid var(--border);font-size:12px;color:var(--text-muted);line-height:1.6">This is <strong>electrophilic substitution</strong>, not addition. The Lewis acid activates X₂ → makes X⁺ electrophile. Direct F₂ is too violent; direct I₂ is too slow — both need special methods.</div>
+          </div>
+          <div class="section-title">Method 2 — Via diazonium salt (Sandmeyer's &amp; others)</div>
+          <div style="border-radius:10px;overflow:hidden;border:1px solid var(--border)">
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;background:#F9FAFB;padding:8px 12px;font-size:11px;font-weight:600;color:var(--text-muted)">
+              <div>Target halogen</div><div>Reagent</div><div>Reaction name</div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;padding:10px 12px;font-size:13px;border-top:1px solid var(--border)">
+              <div style="color:#0284C7;font-weight:600">–Cl</div><div style="font-family:monospace">CuCl / HCl</div><div>Sandmeyer's</div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;padding:10px 12px;font-size:13px;border-top:1px solid var(--border);background:#F9FAFB">
+              <div style="color:#DC2626;font-weight:600">–Br</div><div style="font-family:monospace">CuBr / HBr</div><div>Sandmeyer's</div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;padding:10px 12px;font-size:13px;border-top:1px solid var(--border)">
+              <div style="color:#7C3AED;font-weight:600">–I</div><div style="font-family:monospace">KI only ⚡</div><div>No Cu needed!</div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;padding:10px 12px;font-size:13px;border-top:1px solid var(--border);background:#F9FAFB">
+              <div style="color:#059669;font-weight:600">–F</div><div style="font-family:monospace">ArN₂⁺BF₄⁻ heat</div><div>Balz-Schiemann</div>
+            </div>
+          </div>
+        </div>
+        <div class="section">
+          <div class="neet-tip" style="background:#FFF7ED">
+            <span class="neet-badge" style="background:#EA580C;color:white">NEET TIP</span>
+            <div class="neet-text" style="color:#7C2D12">The iodide exception (KI, no copper) and Balz-Schiemann for fluoride are the two most tested facts from this atom. Know the table by heart.</div>
+          </div>
+          <div class="mistake-row">
+            <span class="mistake-tag">✕ Using CuI for iodobenzene — only KI needed, no copper</span>
+            <span class="mistake-tag">✕ Benzene + Cl₂ = addition reaction — it's EAS substitution</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ATOM 5: SN1 -->
+    <div class="atom-view hidden" id="atom-4">
+      <div class="atom-header">
+        <div class="breadcrumb">Ch 10 · Atom 5 of 8</div>
+        <div class="atom-title">SN1 Reaction Mechanism</div>
+        <div class="atom-meta">
+          <span class="chip" style="background:#FEF3C7;color:#D97706">~8 min</span>
+          <span class="chip" style="background:#FEE2E2;color:#991B1B">High priority</span>
+          <span class="chip" style="background:#FEF3C7;color:#78350F">1-2 Qs/yr NEET</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="hook" style="background:#FEF3C7">
+          <div class="hook-icon" style="background:#D97706">🍽️</div>
+          <div class="hook-text" style="color:#78350F">Like a waiter who clears the old dish FIRST — the leaving group departs, carbocation forms, THEN the nucleophile arrives. That's SN1!</div>
+        </div>
+        <div class="section">
+          <div class="section-title">Step-by-step mechanism</div>
+          <div class="flow">
+            <div class="flow-box">
+              <div class="flow-molecule" style="background:#FEF3C7;border-color:#F59E0B;color:#78350F">R–X</div>
+              <div class="flow-label">Alkyl halide</div>
+            </div>
+            <div class="flow-arrow">
+              <div class="flow-speed" style="color:#DC2626">SLOW</div>
+              <div class="flow-arrow-line" style="background:#DC2626"></div>
+              <div class="flow-note">ionisation<br>C–X breaks</div>
+            </div>
+            <div class="flow-box">
+              <div class="flow-molecule" style="background:#FEE2E2;border-color:#FCA5A5;color:#DC2626">R⁺ + X⁻</div>
+              <div class="flow-label" style="color:#DC2626">Carbocation (sp²)</div>
+            </div>
+            <div class="flow-arrow">
+              <div class="flow-speed" style="color:#059669">FAST</div>
+              <div class="flow-arrow-line" style="background:#059669"></div>
+              <div class="flow-note">Nu⁻ attacks<br>both faces</div>
+            </div>
+            <div class="flow-box">
+              <div class="flow-molecule" style="background:#ECFDF5;border-color:#6EE7B7;color:#065F46">R–Nu</div>
+              <div class="flow-label" style="color:#059669">Racemic mixture</div>
+            </div>
+          </div>
+        </div>
+        <div class="section">
+          <div class="section-title">The 3 things you must know</div>
+          <div class="kp-grid">
+            <div class="kp" style="background:#FFF7ED">
+              <div class="kp-icon">📐</div>
+              <div class="kp-title">Rate law</div>
+              <div style="font-size:16px;font-weight:700;color:#C2410C;font-family:monospace;margin:4px 0">Rate = k[RX]</div>
+              <div class="kp-desc">First order — only substrate matters. Nucleophile concentration has no effect.</div>
+            </div>
+            <div class="kp" style="background:#FEF3C7">
+              <div class="kp-icon">🏆</div>
+              <div class="kp-title">Best substrate</div>
+              <div style="font-size:14px;font-weight:700;color:#78350F;margin:4px 0">3° > 2° >> 1°</div>
+              <div class="kp-desc">Tertiary carbocation most stable (hyperconjugation + inductive effect)</div>
+            </div>
+            <div class="kp" style="background:#F0FDF4">
+              <div class="kp-icon">🌀</div>
+              <div class="kp-title">Stereochemistry</div>
+              <div style="font-size:14px;font-weight:700;color:#065F46;margin:4px 0">Racemisation</div>
+              <div class="kp-desc">sp² planar carbocation attacked equally from both faces → 50:50 R + S</div>
+            </div>
+          </div>
+        </div>
+        <div class="section">
+          <div class="neet-tip" style="background:#FEF3C7">
+            <span class="neet-badge" style="background:#D97706;color:white">NEET TIP</span>
+            <div class="neet-text" style="color:#78350F">The most common SN1 question: "What is the stereochemical outcome?" → Always racemisation for SN1, never inversion. Inversion = SN2.</div>
+          </div>
+          <div class="mistake-row">
+            <span class="mistake-tag">✕ Writing inversion for SN1 — inversion (Walden) is SN2</span>
+            <span class="mistake-tag">✕ Primary halides undergoing SN1 — primary carbocations are too unstable</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ATOM 6: SN2 -->
+    <div class="atom-view hidden" id="atom-5">
+      <div class="atom-header">
+        <div class="breadcrumb">Ch 10 · Atom 6 of 8</div>
+        <div class="atom-title">SN2 Reaction Mechanism</div>
+        <div class="atom-meta">
+          <span class="chip" style="background:#ECFDF5;color:#059669">~8 min</span>
+          <span class="chip" style="background:#FEE2E2;color:#991B1B">High priority</span>
+          <span class="chip" style="background:#FEF3C7;color:#78350F">Most tested topic</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="hook" style="background:#ECFDF5">
+          <div class="hook-icon" style="background:#059669">💃</div>
+          <div class="hook-text" style="color:#064E3B">Like a perfect dance move — the new partner grabs your hand EXACTLY as you let go of the old one. One smooth simultaneous motion with a complete spin (inversion)!</div>
+        </div>
+        <div class="section">
+          <div class="section-title">Concerted single-step mechanism</div>
+          <div style="background:#F9FAFB;border-radius:10px;padding:16px;margin-bottom:16px;display:flex;align-items:center;gap:12px;overflow-x:auto">
+            <div style="text-align:center;min-width:70px"><div style="font-size:14px;font-weight:600;color:#059669">Nu⁻</div><div style="font-size:10px;color:var(--text-muted)">attacks 180°</div></div>
+            <div style="font-size:20px;color:#059669">⟶</div>
+            <div style="text-align:center;min-width:110px"><div style="font-size:13px;font-family:monospace;padding:8px 12px;background:#FEF3C7;border-radius:8px;border:2px dashed #F59E0B;color:#78350F">Nu···C···X</div><div style="font-size:10px;color:#D97706;margin-top:4px">Transition state (5-coordinate)</div></div>
+            <div style="font-size:20px;color:#059669">⟶</div>
+            <div style="text-align:center;min-width:100px"><div style="font-size:13px;font-family:monospace;padding:8px 12px;background:#ECFDF5;border-radius:8px;border:2px solid #6EE7B7;color:#065F46">Nu–R + X⁻</div><div style="font-size:10px;color:#059669;margin-top:4px">Config inverted</div></div>
+          </div>
+        </div>
+        <div class="section">
+          <div class="section-title">SN1 vs SN2 — the complete comparison</div>
+          <table class="compare-table">
+            <thead>
+              <tr>
+                <th style="color:var(--text-muted)">Property</th>
+                <th style="color:#D97706">SN1</th>
+                <th style="color:#059669">SN2</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Steps</td><td>2 (slow + fast)</td><td>1 (concerted)</td></tr>
+              <tr><td>Intermediate</td><td style="color:#DC2626">Carbocation</td><td style="color:#059669">None (TS only)</td></tr>
+              <tr><td>Rate law</td><td style="font-family:monospace">k[RX]</td><td style="font-family:monospace">k[RX][Nu]</td></tr>
+              <tr><td>Order</td><td>1st order</td><td>2nd order</td></tr>
+              <tr><td>Best substrate</td><td style="color:#D97706;font-weight:600">3°</td><td style="color:#059669;font-weight:600">1° / Methyl</td></tr>
+              <tr><td>Solvent</td><td>Polar protic</td><td>Polar aprotic</td></tr>
+              <tr><td>Stereochemistry</td><td style="color:#DC2626;font-weight:600">Racemisation</td><td style="color:#059669;font-weight:600">Inversion</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="section">
+          <div class="neet-tip" style="background:#ECFDF5">
+            <span class="neet-badge" style="background:#059669;color:white">NEET TIP</span>
+            <div class="neet-text" style="color:#064E3B">This comparison table is the single most tested topic from Chapter 10. Know all 7 rows. The most common question: which gives racemisation (SN1) vs inversion (SN2)?</div>
+          </div>
+          <div class="mistake-row">
+            <span class="mistake-tag">✕ SN2 gives racemisation — NO, complete inversion (Walden inversion)</span>
+            <span class="mistake-tag">✕ Neopentyl bromide (primary) reacts fast in SN2 — very slow due to steric hindrance</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ATOM 7: Elimination -->
+    <div class="atom-view hidden" id="atom-6">
+      <div class="atom-header">
+        <div class="breadcrumb">Ch 10 · Atom 7 of 8</div>
+        <div class="atom-title">Elimination Reactions: E1 &amp; E2</div>
+        <div class="atom-meta">
+          <span class="chip" style="background:#F5F3FF;color:#7C3AED">~7 min</span>
+          <span class="chip" style="background:#D1FAE5;color:#065F46">Mechanism</span>
+          <span class="chip" style="background:#FEF3C7;color:#78350F">Saytzeff's rule tested</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="hook" style="background:#F5F3FF">
+          <div class="hook-icon" style="background:#7C3AED">🚗</div>
+          <div class="hook-text" style="color:#3B0764">When traffic is too congested, cars take an exit ramp — when a carbon gets too crowded, molecules eliminate to form a double bond and take a different route!</div>
+        </div>
+        <div class="section">
+          <div class="section-title">E1 vs E2</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px">
+            <div style="border-radius:10px;padding:14px;background:#F5F3FF;border:1px solid #C4B5FD">
+              <div style="font-size:14px;font-weight:600;color:#5B21B6;margin-bottom:8px">E1 — Unimolecular</div>
+              <div style="font-size:13px;font-family:monospace;color:#6D28D9;margin-bottom:8px">Rate = k[RX]</div>
+              <div style="font-size:12px;color:#4C1D95;line-height:1.7">① Carbocation forms (SLOW)<br>② Base removes β-H (FAST)<br><br>Needs: weak base, polar protic solvent, 3° halide, high temp</div>
+            </div>
+            <div style="border-radius:10px;padding:14px;background:#EDE9FE;border:1px solid #A78BFA">
+              <div style="font-size:14px;font-weight:600;color:#4C1D95;margin-bottom:8px">E2 — Bimolecular</div>
+              <div style="font-size:13px;font-family:monospace;color:#5B21B6;margin-bottom:8px">Rate = k[RX][Base]</div>
+              <div style="font-size:12px;color:#4C1D95;line-height:1.7">Base removes β-H &amp; X⁻ leaves simultaneously<br><br>Needs: strong bulky base (KOH/alc, KOtBu), anti-periplanar geometry</div>
+            </div>
+          </div>
+          <div style="border-radius:10px;padding:14px;background:#FEF3C7;border:1px solid #FCD34D;margin-bottom:12px">
+            <div style="font-size:13px;font-weight:600;color:#78350F;margin-bottom:8px">☑ Saytzeff's Rule — the major product is always…</div>
+            <div style="display:flex;gap:10px;align-items:center">
+              <div style="flex:1;text-align:center;padding:10px;border-radius:8px;background:#ECFDF5;border:1px solid #6EE7B7">
+                <div style="font-size:13px;font-weight:600;color:#065F46">More substituted alkene</div>
+                <div style="font-size:20px;margin:4px 0">✓</div>
+                <div style="font-size:11px;color:#047857">More stable = major product</div>
+              </div>
+              <div style="font-size:18px;color:var(--text-muted)">vs</div>
+              <div style="flex:1;text-align:center;padding:10px;border-radius:8px;background:#FEF2F2;border:1px solid #FECACA">
+                <div style="font-size:13px;font-weight:600;color:#DC2626">Less substituted alkene</div>
+                <div style="font-size:20px;margin:4px 0">✗</div>
+                <div style="font-size:11px;color:#DC2626">Less stable = minor product</div>
+              </div>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+            <div style="padding:12px;border-radius:10px;background:#ECFDF5;border:1px solid #6EE7B7;text-align:center;font-size:13px"><strong>Alcoholic KOH</strong><br><span style="color:#059669;font-size:12px">→ Elimination (E1/E2)</span></div>
+            <div style="padding:12px;border-radius:10px;background:#E0F2FE;border:1px solid #BAE6FD;text-align:center;font-size:13px"><strong>Aqueous KOH</strong><br><span style="color:#0284C7;font-size:12px">→ Substitution (SN)</span></div>
+          </div>
+        </div>
+        <div class="section">
+          <div class="neet-tip" style="background:#F5F3FF">
+            <span class="neet-badge" style="background:#7C3AED;color:white">NEET TIP</span>
+            <div class="neet-text" style="color:#3B0764">Alcoholic KOH → elimination is the most frequently tested condition in this atom. The condition tells you the product.</div>
+          </div>
+          <div class="mistake-row">
+            <span class="mistake-tag">✕ Less substituted = Saytzeff product (it's more substituted)</span>
+            <span class="mistake-tag">✕ Aqueous KOH gives elimination — aqueous = substitution, alcoholic = elimination</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ATOM 8: Haloarene Reactions -->
+    <div class="atom-view hidden" id="atom-7">
+      <div class="atom-header">
+        <div class="breadcrumb">Ch 10 · Atom 8 of 8</div>
+        <div class="atom-title">Reactions of Haloarenes</div>
+        <div class="atom-meta">
+          <span class="chip" style="background:#E0F2FE;color:#0284C7">~7 min</span>
+          <span class="chip" style="background:#D1FAE5;color:#065F46">Reactions</span>
+          <span class="chip" style="background:#FEF3C7;color:#78350F">Tricky NEET Qs</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="hook" style="background:#E0F2FE">
+          <div class="hook-icon" style="background:#0284C7">🏛️</div>
+          <div class="hook-text" style="color:#0C4A6E">Benzene is like a VIP lounge — nucleophiles are usually turned away at the door! But with the right EWG pass, even they can enter.</div>
+        </div>
+        <div class="section">
+          <div class="section-title">NAS — why haloarenes resist nucleophiles</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px">
+            <div style="border-radius:10px;padding:14px;background:#FEF2F2;border:1px solid #FECACA">
+              <div style="font-size:13px;font-weight:600;color:#991B1B;margin-bottom:8px">3 reasons ArX resists NAS</div>
+              <div style="font-size:12px;color:#DC2626;line-height:1.8">① C–X has partial double bond (resonance) → harder to break<br>② sp² C less electrophilic than sp³<br>③ Steric hindrance from ring</div>
+            </div>
+            <div style="border-radius:10px;padding:14px;background:#ECFDF5;border:1px solid #6EE7B7">
+              <div style="font-size:13px;font-weight:600;color:#065F46;margin-bottom:8px">When NAS is possible</div>
+              <div style="font-size:12px;color:#047857;line-height:1.8">• Extreme conditions: 300°C, 300 atm<br>• OR –NO₂ groups ortho/para to X<br><br>Mechanism: addition-elimination via Meisenheimer complex</div>
+            </div>
+          </div>
+        </div>
+        <div class="section">
+          <div class="section-title">EAS — halogen's dual role</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px">
+            <div style="border-radius:10px;padding:14px;background:#FEF3C7;border:1px solid #FCD34D;text-align:center">
+              <div style="font-size:12px;font-weight:600;color:#78350F;margin-bottom:6px">+M effect (resonance)</div>
+              <div style="font-size:22px;font-weight:700;color:#D97706">o/p director</div>
+              <div style="font-size:11px;color:#92400E;margin-top:4px">Lone pair donates to ring via resonance → directs incoming electrophile to ortho and para positions</div>
+            </div>
+            <div style="border-radius:10px;padding:14px;background:#FEF2F2;border:1px solid #FECACA;text-align:center">
+              <div style="font-size:12px;font-weight:600;color:#991B1B;margin-bottom:6px">–I effect (induction)</div>
+              <div style="font-size:22px;font-weight:700;color:#DC2626">Ring deactivator</div>
+              <div style="font-size:11px;color:#DC2626;margin-top:4px">Withdraws electrons inductively → ring has less electron density → EAS slower than benzene</div>
+            </div>
+          </div>
+          <div style="padding:12px 16px;background:#F9FAFB;border-radius:10px;font-size:13px;text-align:center;border:1px solid var(--border)">
+            Net result: Halogens are <strong>o/p directors</strong> but <strong>ring deactivators</strong> — EAS gives o + p products, but slower than benzene
+          </div>
+        </div>
+        <div class="section">
+          <div class="neet-tip" style="background:#E0F2FE">
+            <span class="neet-badge" style="background:#0284C7;color:white">NEET TIP</span>
+            <div class="neet-text" style="color:#0C4A6E">The most tricky question: halogens are o/p directors — students assume they activate the ring. They DON'T. o/p director ≠ ring activator for halogens.</div>
+          </div>
+          <div class="mistake-row">
+            <span class="mistake-tag">✕ o/p directors always activate ring — halogens direct o/p but DEactivate</span>
+            <span class="mistake-tag">✕ Haloarenes can't do NAS — they can, with EWG groups or extreme conditions</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- QUIZ MODE -->
+  <div class="content hidden" id="quiz-mode">
+    <div class="quiz-header">
+      <div style="font-size:12px;color:var(--text-muted);margin-bottom:6px">Ch 10 · Practice Quiz</div>
+      <div style="font-size:22px;font-weight:600;margin-bottom:16px">20 NEET-Style MCQs</div>
+      <div class="quiz-progress" id="quiz-dots"></div>
+    </div>
+    <div id="quiz-area"></div>
+  </div>
+</div>
+
+<script>
+const atoms = [
+  {id:0},{id:1},{id:2},{id:3},{id:4},{id:5},{id:6},{id:7}
+];
+let currentAtom = 0;
+let visitedAtoms = new Set([0]);
+let currentMode = 'learn';
+
+function showAtom(idx, navEl) {
+  document.querySelectorAll('.atom-view').forEach(v => v.classList.add('hidden'));
+  document.getElementById('atom-'+idx).classList.remove('hidden');
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  if(navEl) navEl.classList.add('active');
+  else document.getElementById('nav'+idx).classList.add('active');
+  currentAtom = idx;
+  visitedAtoms.add(idx);
+  updateProgress();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function nextAtom() {
+  if(currentAtom < 7) showAtom(currentAtom+1, null);
+  else startQuiz();
+}
+
+function prevAtom() {
+  if(currentAtom > 0) showAtom(currentAtom-1, null);
+}
+
+function updateProgress() {
+  const pct = (visitedAtoms.size / 8) * 100;
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('progress-text').textContent = visitedAtoms.size + ' / 8';
+}
+
+function setMode(mode) {
+  currentMode = mode;
+  document.getElementById('tab-learn').classList.toggle('active', mode==='learn');
+  document.getElementById('tab-quiz').classList.toggle('active', mode==='quiz');
+  document.getElementById('learn-mode').classList.toggle('hidden', mode!=='learn');
+  document.getElementById('quiz-mode').classList.toggle('hidden', mode!=='quiz');
+  if(mode==='quiz') buildQuiz();
+}
+
+function startQuiz() {
+  setMode('quiz');
+  document.querySelector('.topbar').scrollIntoView({behavior:'smooth'});
+}
+
+const questions = [
+  {n:1,q:"What is the IUPAC name of CH₃-CHCl-CH₂-CH₃?",opts:{A:"2-Chlorobutane",B:"3-Chlorobutane",C:"1-Chlorobutane",D:"2-Chloropropane"},ans:"A",exp:"The longest chain is 4C (butane). Cl is on C-2 when numbered from the nearer end — giving 2-chlorobutane.",topic:"Nomenclature",diff:"easy"},
+  {n:2,q:"Which is the correct IUPAC name of CH₂=CH-CH₂Cl?",opts:{A:"3-Chloro-1-propene",B:"1-Chloro-2-propene",C:"Allyl chloride",D:"1-Chloropropane"},ans:"A",exp:"Double bond (principal group) gets lowest locant → C1=C2, Cl on C3 → 3-chloro-1-propene. 'Allyl chloride' is only the common name.",topic:"Nomenclature",diff:"easy"},
+  {n:3,q:"Why do chloroalkanes have higher boiling points than corresponding alkanes?",opts:{A:"C-Cl bond is ionic",B:"Higher molecular mass and stronger van der Waals forces",C:"Haloalkanes form hydrogen bonds",D:"C-Cl has no dipole moment"},ans:"B",exp:"Higher molecular mass → greater London dispersion + polar C-X adds dipole-dipole interactions.",topic:"Physical properties",diff:"easy"},
+  {n:4,q:"Which reagent is used in the Finkelstein reaction?",opts:{A:"NaF in acetone",B:"NaI in acetone",C:"AgI in ethanol",D:"KI in water"},ans:"B",exp:"NaI in dry acetone — NaCl/NaBr precipitates out (insoluble in acetone), driving equilibrium forward.",topic:"Preparation",diff:"easy"},
+  {n:5,q:"In the Wurtz reaction, 2 moles of CH₃Br + Na gives:",opts:{A:"Ethane",B:"Methane",C:"Ethene",D:"Propane"},ans:"A",exp:"Two methyl groups couple: CH₃Br + 2Na + BrCH₃ → CH₃-CH₃ (ethane) + 2NaBr.",topic:"Preparation",diff:"easy"},
+  {n:6,q:"Which statement about the C-X bond is CORRECT?",opts:{A:"C-X bond length increases from C-F to C-I",B:"C-X bond strength increases from C-F to C-I",C:"Electronegativity of halogens increases from F to I",D:"C-F bond is the weakest"},ans:"A",exp:"Atomic radius increases F→I, so bond length increases: C-F < C-Cl < C-Br < C-I. Bond strength decreases in the same order.",topic:"C-X bond",diff:"medium"},
+  {n:7,q:"In the Swarts reaction, alkyl chlorides are converted to alkyl fluorides using:",opts:{A:"SbF₃ or AgF",B:"NaF in acetone",C:"HF gas",D:"CaF₂ at high temperature"},ans:"A",exp:"Swarts reaction uses metallic fluorides — AgF, SbF₃, Hg₂F₂, CoF₂ — to exchange Cl/Br with F.",topic:"Preparation",diff:"medium"},
+  {n:8,q:"When ethanol is treated with PCl₅, the product and reaction type are:",opts:{A:"Chloroethane; nucleophilic substitution",B:"Chloroethane; electrophilic substitution",C:"Ethyl chloride; elimination",D:"Diethyl ether; dehydration"},ans:"A",exp:"C₂H₅OH + PCl₅ → C₂H₅Cl + POCl₃ + HCl. The OH is replaced by Cl via nucleophilic substitution.",topic:"Preparation",diff:"medium"},
+  {n:9,q:"Among CH₃F, CH₃Cl, CH₃Br, CH₃I — which has the highest boiling point?",opts:{A:"CH₃Cl",B:"CH₃Br",C:"CH₃I",D:"CH₃F"},ans:"C",exp:"Boiling point increases with molecular mass. CH₃I has highest mass → strongest van der Waals → highest BP.",topic:"Physical properties",diff:"medium"},
+  {n:10,q:"When CH₃Br and C₂H₅Br react with Na (Wurtz), which product is NOT formed?",opts:{A:"Ethane",B:"Propane",C:"Butane",D:"Methane"},ans:"D",exp:"Wurtz couples two alkyl groups: CH₃+CH₃→ethane, CH₃+C₂H₅→propane, C₂H₅+C₂H₅→butane. Methane cannot form — Wurtz only couples halides, never produces single-carbon products.",topic:"Preparation",diff:"hard"},
+  {n:11,q:"Which alkyl halide undergoes SN2 at the fastest rate?",opts:{A:"2-bromo-2-methylpropane",B:"2-bromopropane",C:"1-bromopropane",D:"1-bromo-2-methylpropane"},ans:"C",exp:"SN2 favours primary halides (least steric hindrance). 1-bromopropane is primary and unhindered. Neopentyl is primary but hindered — slower. 2° and 3° are even slower.",topic:"SN2",diff:"easy"},
+  {n:12,q:"Chlorobenzene + NaOH at 300°C/300 atm → phenol. Mechanism is:",opts:{A:"SN1",B:"SN2",C:"Benzyne (elimination-addition)",D:"Free radical"},ans:"C",exp:"Chlorobenzene doesn't do normal SN. Under extreme conditions it goes through a benzyne (aryne) intermediate via elimination-addition mechanism.",topic:"Haloarene reactions",diff:"easy"},
+  {n:13,q:"SN1 of (R)-2-bromobutane with aqueous NaOH gives:",opts:{A:"Exclusively (R)-2-butanol",B:"Exclusively (S)-2-butanol",C:"Racemic mixture (R)+(S)",D:"Meso compound"},ans:"C",exp:"SN1 → planar sp² carbocation → nucleophile attacks both faces equally → 50:50 racemic mixture. This is the hallmark of SN1.",topic:"SN1 stereochemistry",diff:"medium"},
+  {n:14,q:"Effect of increasing solvent polarity on SN1 and SN2 (charged nucleophile):",opts:{A:"Polar solvents favor SN2, inhibit SN1",B:"Polar solvents favor SN1, inhibit SN2 when nucleophile is charged",C:"Polar solvents inhibit both",D:"No effect on either"},ans:"B",exp:"Polar solvents stabilise the carbocation intermediate → favour SN1. For SN2 with charged nucleophile, polar protic solvents solvate and deactivate the nucleophile → inhibit SN2.",topic:"SN1/SN2 conditions",diff:"medium"},
+  {n:15,q:"2-Bromo-2-methylbutane + alcoholic KOH → major product (Saytzeff's rule):",opts:{A:"2-methylbut-1-ene",B:"2-methylbut-2-ene",C:"3-methylbut-1-ene",D:"2-methyl-1-butanol"},ans:"B",exp:"Saytzeff's rule: more substituted alkene = major product. 2-methylbut-2-ene (trisubstituted) > 2-methylbut-1-ene (disubstituted). Alcoholic KOH → E2 elimination.",topic:"Elimination/Saytzeff",diff:"medium"},
+  {n:16,q:"Which statement about Grignard reagents is INCORRECT?",opts:{A:"C in C-Mg bond is nucleophilic",B:"Grignard reagents react with water to give alkanes",C:"Grignard reagents prepared from fluoroalkanes most easily",D:"Carbon bearing Mg acts as carbanion equivalent"},ans:"C",exp:"Fluoroalkanes have very strong C-F bonds and react poorly with Mg. Reactivity: RI > RBr > RCl >> RF. Fluoroalkanes are the hardest to convert to Grignard reagents.",topic:"Grignard reagent",diff:"medium"},
+  {n:17,q:"Nucleophilicity order in protic solvent:",opts:{A:"F⁻ > Cl⁻ > Br⁻ > I⁻",B:"I⁻ > Br⁻ > Cl⁻ > F⁻",C:"F⁻ > I⁻ > Br⁻ > Cl⁻",D:"Cl⁻ > Br⁻ > I⁻ > F⁻"},ans:"B",exp:"In protic solvents, smaller ions (F⁻) are heavily solvated by H-bonding → reduced nucleophilicity. Larger I⁻ is poorly solvated → best nucleophile. Order: I⁻ > Br⁻ > Cl⁻ > F⁻.",topic:"Nucleophilicity",diff:"hard"},
+  {n:18,q:"SN2 of (S)-2-bromobutane with NaCN — the product is:",opts:{A:"(S)-2-methylbutanenitrile",B:"(R)-2-methylbutanenitrile",C:"Racemic 2-methylbutanenitrile",D:"Retention of configuration"},ans:"B",exp:"SN2 always gives complete inversion (Walden inversion). After CN replaces Br, reassigning R/S priorities gives (R)-2-methylbutanenitrile. Physical inversion always occurs — R/S label may or may not change based on priority reassignment.",topic:"SN2 stereochemistry",diff:"hard"},
+  {n:19,q:"E2 elimination of meso-2,3-dibromobutane with strong base gives:",opts:{A:"cis-but-2-ene only",B:"trans-but-2-ene only",C:"Mixture of cis and trans",D:"but-1-ene"},ans:"B",exp:"E2 requires anti-periplanar H and leaving group. In meso-2,3-dibromobutane, anti-periplanar conformation places methyl groups on opposite sides → exclusively trans-but-2-ene (E-but-2-ene).",topic:"E2 stereochemistry",diff:"hard"},
+  {n:20,q:"Why does p-nitrochlorobenzene undergo NAS more readily than chlorobenzene?",opts:{A:"Nitro group increases electron density at C-Cl",B:"Nitro group stabilises the Meisenheimer complex intermediate",C:"Nitro group increases leaving ability of Cl⁻",D:"Nitro group activates ring toward electrophilic attack"},ans:"B",exp:"NAS proceeds via Meisenheimer complex (negatively charged intermediate). Para-NO₂ delocalises the negative charge via resonance → stabilises the complex → lowers activation energy. This makes substitution much easier.",topic:"Haloarene NAS",diff:"hard"}
+];
+
+let quizAnswers = {};
+let quizRevealed = {};
+let currentQ = 0;
+let quizBuilt = false;
+
+function buildQuiz() {
+  if(quizBuilt) return;
+  quizBuilt = true;
+  const dots = document.getElementById('quiz-dots');
+  questions.forEach((q,i) => {
+    const d = document.createElement('div');
+    d.className = 'qp-dot';
+    d.id = 'dot-'+i;
+    dots.appendChild(d);
+  });
+  document.getElementById('dot-0').classList.add('active');
+  showQuestion(0);
+}
+
+function showQuestion(idx) {
+  currentQ = idx;
+  const q = questions[idx];
+  const area = document.getElementById('quiz-area');
+  const diff = q.diff;
+  const diffColor = diff==='easy'?'easy':diff==='medium'?'medium':'hard';
+
+  area.innerHTML = `
+    <div class="q-card">
+      <div class="q-meta-row">
+        <span class="chip ${diffColor}">${diff}</span>
+        <span style="font-size:12px;color:var(--text-muted)">${q.topic}</span>
+      </div>
+      <div class="q-text">Q${q.n}. ${q.q}</div>
+      <div class="q-options">
+        ${Object.entries(q.opts).map(([k,v]) => `
+          <div class="q-opt" id="opt-${k}" onclick="selectAnswer('${k}')">
+            <div class="q-opt-key">${k}</div>
+            <div>${v}</div>
+          </div>
+        `).join('')}
+      </div>
+      <div class="q-explanation" id="explanation">
+        <strong>✓ Correct answer: ${q.ans}</strong><br>${q.exp}
+      </div>
+      <div class="q-nav">
+        <span class="q-counter">Question ${idx+1} of ${questions.length}</span>
+        <div style="display:flex;gap:8px">
+          ${idx > 0 ? `<button class="btn" onclick="showQuestion(${idx-1})">← Back</button>` : ''}
+          ${quizRevealed[idx] ? (idx < questions.length-1 ? `<button class="btn btn-primary" onclick="showQuestion(${idx+1})">Next →</button>` : `<button class="btn btn-primary" onclick="showScore()">See Results</button>`) : ''}
+        </div>
+      </div>
+    </div>
+  `;
+
+  if(quizAnswers[idx]) {
+    const chosen = quizAnswers[idx];
+    document.getElementById('opt-'+chosen).classList.add(chosen===q.ans?'selected-correct':'selected-wrong');
+    if(chosen !== q.ans) document.getElementById('opt-'+q.ans).classList.add('reveal-correct');
+    document.getElementById('explanation').classList.add('show');
+    Object.keys(q.opts).forEach(k => {
+      const el = document.getElementById('opt-'+k);
+      el.onclick = null;
+      el.style.cursor = 'default';
+    });
+  }
+
+  document.querySelectorAll('.qp-dot').forEach((d,i) => {
+    d.className = 'qp-dot';
+    if(i===idx) d.classList.add('active');
+    else if(quizAnswers[i]!==undefined) d.classList.add(quizAnswers[i]===questions[i].ans?'done':'wrong');
+  });
+}
+
+function selectAnswer(key) {
+  const q = questions[currentQ];
+  quizAnswers[currentQ] = key;
+  quizRevealed[currentQ] = true;
+
+  document.getElementById('opt-'+key).classList.add(key===q.ans?'selected-correct':'selected-wrong');
+  if(key !== q.ans) document.getElementById('opt-'+q.ans).classList.add('reveal-correct');
+  document.getElementById('explanation').classList.add('show');
+
+  Object.keys(q.opts).forEach(k => {
+    const el = document.getElementById('opt-'+k);
+    el.onclick = null;
+    el.style.cursor = 'default';
+  });
+
+  document.getElementById('dot-'+currentQ).className = 'qp-dot '+(key===q.ans?'done':'wrong');
+
+  const nav = document.querySelector('.q-nav div');
+  if(currentQ < questions.length-1) {
+    nav.innerHTML = (currentQ>0?`<button class="btn" onclick="showQuestion(${currentQ-1})">← Back</button>`:'') + `<button class="btn btn-primary" onclick="showQuestion(${currentQ+1})">Next →</button>`;
+  } else {
+    nav.innerHTML = (currentQ>0?`<button class="btn" onclick="showQuestion(${currentQ-1})">← Back</button>`:'') + `<button class="btn btn-primary" onclick="showScore()">See Results →</button>`;
+  }
+}
+
+function showScore() {
+  const correct = questions.filter((q,i) => quizAnswers[i]===q.ans).length;
+  const pct = Math.round((correct/questions.length)*100);
+  const easy = questions.filter((q,i) => q.diff==='easy' && quizAnswers[i]===q.ans).length;
+  const med = questions.filter((q,i) => q.diff==='medium' && quizAnswers[i]===q.ans).length;
+  const hard = questions.filter((q,i) => q.diff==='hard' && quizAnswers[i]===q.ans).length;
+  const easyT = questions.filter(q=>q.diff==='easy').length;
+  const medT = questions.filter(q=>q.diff==='medium').length;
+  const hardT = questions.filter(q=>q.diff==='hard').length;
+
+  const emoji = pct>=80?'🎉':pct>=60?'💪':'📚';
+  const msg = pct>=80?'Excellent! You\'re NEET ready on this chapter.':pct>=60?'Good work! Review the wrong ones again.':'Keep practising — go back and re-read the atoms.';
+
+  document.getElementById('quiz-area').innerHTML = `
+    <div class="score-card">
+      <div style="font-size:48px;margin-bottom:12px">${emoji}</div>
+      <div class="score-num" style="color:${pct>=80?'#059669':pct>=60?'#D97706':'#DC2626'}">${pct}%</div>
+      <div class="score-label">${correct} / ${questions.length} correct</div>
+      <div style="font-size:14px;color:var(--text-muted);margin-top:8px">${msg}</div>
+      <div class="score-grid">
+        <div class="score-stat">
+          <div class="score-stat-num" style="color:#059669">${easy}/${easyT}</div>
+          <div class="score-stat-label">Easy</div>
+        </div>
+        <div class="score-stat">
+          <div class="score-stat-num" style="color:#D97706">${med}/${medT}</div>
+          <div class="score-stat-label">Medium</div>
+        </div>
+        <div class="score-stat">
+          <div class="score-stat-num" style="color:#DC2626">${hard}/${hardT}</div>
+          <div class="score-stat-label">Hard</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:10px;justify-content:center">
+        <button class="btn" onclick="retryQuiz()">Retry Quiz</button>
+        <button class="btn btn-primary" onclick="setMode('learn');showAtom(0,null)">Back to Learn</button>
+      </div>
+    </div>
+  `;
+}
+
+function retryQuiz() {
+  quizAnswers = {}; quizRevealed = {}; quizBuilt = false;
+  document.getElementById('quiz-dots').innerHTML = '';
+  buildQuiz();
+}
+</script>
+</body>
+</html>
